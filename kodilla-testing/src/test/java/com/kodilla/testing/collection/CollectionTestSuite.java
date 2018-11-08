@@ -22,9 +22,9 @@ public class CollectionTestSuite {
     @Test
     public void testOddNumbersExterminatorEmptyList() {
         System.out.println("Empty list");
-        OddNumbersExterminator exterminator = new OddNumbersExterminator();
 
         //Given
+        OddNumbersExterminator exterminator = new OddNumbersExterminator();
         ArrayList<Integer> emptyList = new ArrayList<>();
 
         //When
@@ -37,10 +37,9 @@ public class CollectionTestSuite {
     @Test
     public void testOddNumbersExterminatorNormalList() {
         System.out.println("Normal list");
-        OddNumbersExterminator exterminator = new OddNumbersExterminator();
-
 
         //Given
+        OddNumbersExterminator exterminator = new OddNumbersExterminator();
         ArrayList<Integer> listWithOddAndEvenNumbers = new ArrayList<>();
         ArrayList<Integer> listWithEvenNumbers = new ArrayList<>();
 
