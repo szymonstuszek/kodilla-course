@@ -22,20 +22,25 @@ public class CollectionTestSuite {
     @Test
     public void testOddNumbersExterminatorEmptyList() {
         System.out.println("Empty list");
-
         OddNumbersExterminator exterminator = new OddNumbersExterminator();
+
+        //Given
         ArrayList<Integer> emptyList = new ArrayList<>();
+
+        //When
         ArrayList<Integer> processedList = exterminator.exterminate(emptyList);
 
+        //Then
         Assert.assertEquals(emptyList, processedList);
     }
 
     @Test
     public void testOddNumbersExterminatorNormalList() {
         System.out.println("Normal list");
-
         OddNumbersExterminator exterminator = new OddNumbersExterminator();
 
+
+        //Given
         ArrayList<Integer> listWithOddAndEvenNumbers = new ArrayList<>();
         ArrayList<Integer> listWithEvenNumbers = new ArrayList<>();
 
@@ -48,8 +53,10 @@ public class CollectionTestSuite {
         listWithEvenNumbers.add(2);
         listWithEvenNumbers.add(4);
 
+        //When
         ArrayList<Integer> processedList = exterminator.exterminate(listWithOddAndEvenNumbers);
 
+        //Then
         Assert.assertEquals(listWithEvenNumbers, processedList);
     }
 }
