@@ -19,12 +19,12 @@ public class StatisticsCalculator {
         numberOfPosts = statistics.postsCount();
         numberOfComments = statistics.commentsCount();
 
-        if(numberOfForumUsers != 0) {
+        if(numberOfForumUsers > 0) {
             averageNumberOfPostsPerUser = (double) (numberOfPosts / numberOfForumUsers);
             averageNumberOfCommentsPerUser = (double) (numberOfComments / numberOfForumUsers);
         }
 
-        if(numberOfPosts != 0) {
+        if(numberOfPosts > 0) {
            averageNumberOfCommentsPerPost = (double) numberOfComments / (double) numberOfPosts;
         }
     }
