@@ -182,4 +182,30 @@ public class BoardTestSuite {
         Assert.assertEquals(3, countOfTasks);
         Assert.assertEquals(10.0, averageDayCount, 0.001);
     }
+
+@Test
+    public void testIntTaskListAverageWorkingOnTask() {
+        //Given
+        Board project = prepareTestData();
+
+        //When
+        double averageDayCount = 0;
+        LocalDate today = LocalDate.now();
+
+        List<TaskList> inProgressTasks = new ArrayList<>();
+        inProgressTasks.add(new TaskList("In progress"));
+
+        averageDayCount = project.getTaskLists().stream()
+            .filter(inProgressTasks::contains)
+            .flatMap(taskList -> taskList.getTasks().stream())
+            .map(task -> task.getCreated())
+            .map(localDate -> localDate.until(today, ChronoUnit.DAYS))
+            .mapToLong(n -> n).average().getAsDouble();
+
+        //Then
+        Assert.assertEquals(10.0, averageDayCount, 0.001);
+    }
+
+
+
 }
