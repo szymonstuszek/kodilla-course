@@ -200,7 +200,7 @@ public class BoardTestSuite {
             .flatMap(taskList -> taskList.getTasks().stream())
             .map(task -> task.getCreated())
             .map(localDate -> localDate.until(today, ChronoUnit.DAYS))
-            .mapToLong(n -> n).average().getAsDouble();
+            .mapToDouble(n -> n).average().getAsDouble();
 
         //Then
         Assert.assertEquals(10.0, averageDayCount, 0.001);
