@@ -11,9 +11,7 @@ public final class GameMessages {
     public final static String SCISSORS = "You have chosen scissors!";
     public final static String INVALID_MOVE = "No such option!";
 
-    public final static String NEW_ROUND = "New round starting!";
-
-    public final static String DRAW = "No one scores\n";
+    public final static String DRAW = "No one scores.\n";
     public final static String PLAYER_WINS = "You win this round!\n";
     public final static String COMPUTER_WINS = "Computer wins this round.\n";
 

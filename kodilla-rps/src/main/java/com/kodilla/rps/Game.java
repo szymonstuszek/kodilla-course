@@ -13,7 +13,6 @@ public class Game {
         sessionInfo = new SessionInfo();
         resultCalculator = new ResultCalculator(sessionInfo);
         sc = new Scanner(System.in);
-        initGame();
     }
 
     private void setupGame() {
@@ -37,7 +36,7 @@ public class Game {
         sessionInfo.displayNumberOfRounds();
     }
 
-    private void initGame() {
+    public void initGame() {
         boolean running = true;
         String computerMove;
 
