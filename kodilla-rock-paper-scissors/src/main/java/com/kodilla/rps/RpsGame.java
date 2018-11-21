@@ -1,10 +1,6 @@
 package com.kodilla.rps;
 
 public class RpsGame extends Game {
-    public static final String gameName = "Rock Paper Scissors";
-
-
-
     public RpsGame(String name, int maxRounds, int[][] rules) {
         super(name, maxRounds, rules);
     }
