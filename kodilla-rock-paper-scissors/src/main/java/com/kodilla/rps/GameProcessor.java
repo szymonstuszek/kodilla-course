@@ -26,7 +26,7 @@ public class GameProcessor {
 
             if(continuePlaying(humanInput)){
                 int humanMove = Integer.parseInt(humanInput) - 1;
-                int computerMove = computerPlayer.generateMove();
+                int computerMove = computerPlayer.generateMove(game.getCountOfAllowedMoves());
                 System.out.println("Player has chosen: " + humanPlayer.getMove(humanMove) +
                         " computer has chosen: " + computerPlayer.getMove(computerMove));
 

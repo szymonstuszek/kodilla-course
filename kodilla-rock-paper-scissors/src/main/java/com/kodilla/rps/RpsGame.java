@@ -7,7 +7,7 @@ public class RpsGame extends Game {
 
     @Override
     public RoundResult getResult(int player1, int player2) {
-        int result = Rules.rpsRules[player1][player2];
+        int result = getRules()[player1][player2];
 
         String resultString = Integer.toString(result);
         RoundResult roundResult = null;

@@ -17,6 +17,14 @@ public abstract class Game {
         return maxRounds;
     }
 
+    public int getCountOfAllowedMoves() {
+        return getRules().length;
+    }
+
+    public int[][] getRules() {
+        return rules;
+    }
+
     public void setMaxRounds(int maxRounds) {
         this.maxRounds = maxRounds;
     }
