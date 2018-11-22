@@ -8,7 +8,7 @@ import org.junit.Test;
 public class RpsTestSuite {
 
     @Test
-    public void testPlayer1PlaysRockPlayerPlays2RockResult() {
+    public void testPlayer1PlaysRockPlayer2PlaysRockResult() {
         //Given
         Game rpsGame = new RpsGame("Rock Paper Scissors", 1, Rules.rpsRules);
         int player1Move = 0;
@@ -22,7 +22,7 @@ public class RpsTestSuite {
     }
 
     @Test
-    public void testPlayer1PlaysPaperPlayerPlays2RockResult() {
+    public void testPlayer1PlaysPaperPlayer2PlaysRockResult() {
         //Given
         Game rpsGame = new RpsGame("Rock Paper Scissors", 1, Rules.rpsRules);
         int player1Move = 1;
@@ -36,7 +36,7 @@ public class RpsTestSuite {
     }
 
     @Test
-    public void testPlayer1PlaysScissorsPlayerPlays2RockResult() {
+    public void testPlayer1PlaysScissorsPlayer2PlaysRockResult() {
         //Given
         Game rpsGame = new RpsGame("Rock Paper Scissors", 1, Rules.rpsRules);
         int player1Move = 2;
@@ -50,7 +50,7 @@ public class RpsTestSuite {
     }
 
     @Test
-    public void testPlayer1PlaysRockPlayerPlays2PaperResult() {
+    public void testPlayer1PlaysRockPlayer2PlaysPaperResult() {
         //Given
         Game rpsGame = new RpsGame("Rock Paper Scissors", 1, Rules.rpsRules);
         int player1Move = 0;
@@ -64,7 +64,7 @@ public class RpsTestSuite {
     }
 
     @Test
-    public void testPlayer1PlaysPaperPlayerPlays2PaperResult() {
+    public void testPlayer1PlaysPaperPlayer2PlaysPaperResult() {
         //Given
         Game rpsGame = new RpsGame("Rock Paper Scissors", 1, Rules.rpsRules);
         int player1Move = 1;
@@ -78,7 +78,7 @@ public class RpsTestSuite {
     }
 
     @Test
-    public void testPlayer1PlaysScissorsPlayerPlays2PaperResult() {
+    public void testPlayer1PlaysScissorsPlayer2PlaysPaperResult() {
         //Given
         Game rpsGame = new RpsGame("Rock Paper Scissors", 1, Rules.rpsRules);
         int player1Move = 2;
@@ -92,7 +92,7 @@ public class RpsTestSuite {
     }
 
     @Test
-    public void testPlayer1PlaysRockPlayerPlays2ScissorsResult() {
+    public void testPlayer1PlaysRockPlayer2PlaysScissorsResult() {
         //Given
         Game rpsGame = new RpsGame("Rock Paper Scissors", 1, Rules.rpsRules);
         int player1Move = 0;
@@ -106,7 +106,7 @@ public class RpsTestSuite {
     }
 
     @Test
-    public void testPlayer1PlaysPaperPlayerPlays2ScissorsResult() {
+    public void testPlayer1PlaysPaperPlayer2PlaysScissorsResult() {
         //Given
         Game rpsGame = new RpsGame("Rock Paper Scissors", 1, Rules.rpsRules);
         int player1Move = 1;
@@ -120,7 +120,7 @@ public class RpsTestSuite {
     }
 
     @Test
-    public void testPlayer1PlaysScissorsPlayerPlays2ScissorsResult() {
+    public void testPlayer1PlaysScissorsPlayer2PlaysScissorsResult() {
         //Given
         Game rpsGame = new RpsGame("Rock Paper Scissors", 1, Rules.rpsRules);
         int player1Move = 2;
