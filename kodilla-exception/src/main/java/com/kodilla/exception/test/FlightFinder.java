@@ -2,6 +2,7 @@ package com.kodilla.exception.test;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class FlightFinder {
     private Map<String, Boolean> airportMap = new HashMap<>();
@@ -15,7 +16,6 @@ public class FlightFinder {
     }
 
     public void findFlight(Flight flight) throws RouteNotFoundException {
-        Map<String, Boolean> airportAvailabilityMap = new HashMap<>();
         String departureAirport = flight.getDepartureAirport();
         String arrivalAirport = flight.getArrivalAirport();
 
@@ -27,22 +27,12 @@ public class FlightFinder {
             throw new RouteNotFoundException("The arrival airport " + arrivalAirport + " has not been found!");
         }
 
+        Map<String, Boolean> airportAvailabilityMap = airportMap.entrySet().stream()
+                .filter(entry -> entry.getKey().equals(departureAirport) ||
+                        entry.getKey().equals(arrivalAirport))
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
 
-        for (Map.Entry<String, Boolean> airport: airportMap.entrySet()) {
-            if (airport.getKey().equals(departureAirport)) {
-                airportAvailabilityMap.put(airport.getKey(), airport.getValue());
-            }
-        }
-
-        for (Map.Entry<String, Boolean> airport: airportMap.entrySet()) {
-            if (airport.getKey().equals(arrivalAirport)) {
-                airportAvailabilityMap.put(airport.getKey(), airport.getValue());
-            }
-        }
-
-        System.out.println("Result of the search:");
-        for (Map.Entry<String, Boolean> airport: airportAvailabilityMap.entrySet()) {
-            System.out.println("Airport: " + airport.getKey() + " is available: " + airport.getValue());
-        }
+        System.out.println("Availability of the route:");
+        System.out.println(airportAvailabilityMap);
     }
 }
