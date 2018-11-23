@@ -3,7 +3,7 @@ package com.kodilla.rps;
 import java.util.Scanner;
 
 public class GameProcessor {
-    Scanner scanner;
+    private Scanner scanner;
     private Game game;
     private HumanPlayer humanPlayer;
     private ComputerPlayer computerPlayer;
@@ -66,8 +66,8 @@ public class GameProcessor {
             System.out.println("Max rounds reached!");
             System.out.println("x - quit | n - start a new round ");
             System.out.println("Scores");
-            humanPlayer.getPoints();
-            computerPlayer.getPoints();
+            humanPlayer.displayPlayerPoints();
+            computerPlayer.displayPlayerPoints();
             System.out.println("====================");
             String endGameInput = scanner.nextLine();
             System.out.println("Your choice " + endGameInput);
@@ -96,45 +96,5 @@ public class GameProcessor {
         }
 
         return true;
-    }
-
-    public Game getGame() {
-        return game;
-    }
-
-    public void setGame(Game game) {
-        this.game = game;
-    }
-
-    public HumanPlayer getHumanPlayer() {
-        return humanPlayer;
-    }
-
-    public void setHumanPlayer(HumanPlayer humanPlayer) {
-        this.humanPlayer = humanPlayer;
-    }
-
-    public ComputerPlayer getComputerPlayer() {
-        return computerPlayer;
-    }
-
-    public void setComputerPlayer(ComputerPlayer computerPlayer) {
-        this.computerPlayer = computerPlayer;
-    }
-
-    public int getCurrentRound() {
-        return currentRound;
-    }
-
-    public void setCurrentRound(int currentRound) {
-        this.currentRound = currentRound;
-    }
-
-    public boolean isGameRunning() {
-        return gameRunning;
-    }
-
-    public void setGameRunning(boolean gameRunning) {
-        this.gameRunning = gameRunning;
     }
 }

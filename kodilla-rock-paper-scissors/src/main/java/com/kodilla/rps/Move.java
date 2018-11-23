@@ -9,9 +9,4 @@ public enum Move {
         this.moveId = moveId;
     }
 
-    public String getMoveId() {
-        return moveId;
-    }
-
-
 }

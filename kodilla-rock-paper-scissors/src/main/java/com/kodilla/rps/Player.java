@@ -2,15 +2,11 @@ package com.kodilla.rps;
 
 
 public abstract class Player {
-    protected String username;
-    protected int points;
+    private String username;
+    private int points;
 
     public Player(String username) {
         this.username = username;
-    }
-
-    public String getUsername() {
-        return username;
     }
 
     public Move getMove(int moveId) {
@@ -22,8 +18,16 @@ public abstract class Player {
         points++;
     }
 
-    public void getPoints() {
-        System.out.println(username + ": " + points + " points");
+    private String getUsername() {
+        return username;
+    }
+
+    private int getPoints() {
+        return points;
+    }
+
+    public void displayPlayerPoints() {
+        System.out.println(getUsername() + ": " + getPoints() + " points");
     }
 
 }

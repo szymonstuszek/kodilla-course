@@ -3,7 +3,7 @@ package com.kodilla.rps;
 import java.util.Scanner;
 
 public class GameController {
-    Scanner scanner;
+    private Scanner scanner;
 
     GameController(Scanner scanner) {
         this.scanner = scanner;

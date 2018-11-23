@@ -1,6 +1,9 @@
 package com.kodilla.rps;
 
 public abstract class Game {
+    public static final String RPS_GAME_NAME = "Rock paper scissors";
+    public static final String RPSLS_GAME_NAME = "Rock paper scissors lizard spock";
+
     private String gameName;
     private int maxRounds;
     private int[][] rules;
@@ -25,11 +28,4 @@ public abstract class Game {
         return rules;
     }
 
-    public void setMaxRounds(int maxRounds) {
-        this.maxRounds = maxRounds;
-    }
-
-    public String getGameName() {
-        return gameName;
-    }
 }
