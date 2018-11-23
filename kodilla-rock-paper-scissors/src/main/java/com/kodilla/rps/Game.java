@@ -1,9 +1,9 @@
 package com.kodilla.rps;
 
 public abstract class Game {
-    protected String gameName;
-    protected int maxRounds;
-    protected int[][] rules;
+    private String gameName;
+    private int maxRounds;
+    private int[][] rules;
 
     public Game(String gameName, int maxRounds, int[][] rules) {
         this.gameName = gameName;
@@ -27,5 +27,9 @@ public abstract class Game {
 
     public void setMaxRounds(int maxRounds) {
         this.maxRounds = maxRounds;
+    }
+
+    public String getGameName() {
+        return gameName;
     }
 }

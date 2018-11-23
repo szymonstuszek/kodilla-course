@@ -97,4 +97,44 @@ public class GameProcessor {
 
         return true;
     }
+
+    public Game getGame() {
+        return game;
+    }
+
+    public void setGame(Game game) {
+        this.game = game;
+    }
+
+    public HumanPlayer getHumanPlayer() {
+        return humanPlayer;
+    }
+
+    public void setHumanPlayer(HumanPlayer humanPlayer) {
+        this.humanPlayer = humanPlayer;
+    }
+
+    public ComputerPlayer getComputerPlayer() {
+        return computerPlayer;
+    }
+
+    public void setComputerPlayer(ComputerPlayer computerPlayer) {
+        this.computerPlayer = computerPlayer;
+    }
+
+    public int getCurrentRound() {
+        return currentRound;
+    }
+
+    public void setCurrentRound(int currentRound) {
+        this.currentRound = currentRound;
+    }
+
+    public boolean isGameRunning() {
+        return gameRunning;
+    }
+
+    public void setGameRunning(boolean gameRunning) {
+        this.gameRunning = gameRunning;
+    }
 }

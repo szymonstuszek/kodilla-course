@@ -12,7 +12,7 @@ public class RpsRunner {
         int maxRounds = gameController.setupMaxRounds();
 
         //to play standard version
-        Game rpsGame = new RpsGame("Rock Paper Scissors", maxRounds, Rules.rpsRules);
+        Game rpsGame = new RpsGame("Rock Paper Scissors", maxRounds, Rules.RPS_RULES);
 
 
         GameProcessor gameProcessor = new GameProcessor(rpsGame, humanPlayer, computerPlayer, scanner);
