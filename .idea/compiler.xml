@@ -6,6 +6,8 @@
       <module name="kodilla-course_test" target="1.8" />
       <module name="kodilla-exception_main" target="1.8" />
       <module name="kodilla-exception_test" target="1.8" />
+      <module name="kodilla-good-patterns_main" target="1.8" />
+      <module name="kodilla-good-patterns_test" target="1.8" />
       <module name="kodilla-rock-paper-scissors_main" target="1.8" />
       <module name="kodilla-rock-paper-scissors_test" target="1.8" />
       <module name="kodilla-rps_main" target="1.8" />
