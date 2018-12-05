@@ -17,6 +17,12 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/kodilla-rps.iml" filepath="$PROJECT_DIR$/.idea/modules/kodilla-rps.iml" group="kodilla-rps" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/kodilla-rps/kodilla-rps_main.iml" filepath="$PROJECT_DIR$/.idea/modules/kodilla-rps/kodilla-rps_main.iml" group="kodilla-rps" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/kodilla-rps/kodilla-rps_test.iml" filepath="$PROJECT_DIR$/.idea/modules/kodilla-rps/kodilla-rps_test.iml" group="kodilla-rps" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/kodilla-spring.iml" filepath="$PROJECT_DIR$/.idea/modules/kodilla-spring.iml" group="kodilla-spring" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/kodilla-spring-intro.iml" filepath="$PROJECT_DIR$/.idea/modules/kodilla-spring-intro.iml" group="kodilla-spring-intro" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/kodilla-spring-intro/kodilla-spring-intro_main.iml" filepath="$PROJECT_DIR$/.idea/modules/kodilla-spring-intro/kodilla-spring-intro_main.iml" group="kodilla-spring-intro" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/kodilla-spring-intro/kodilla-spring-intro_test.iml" filepath="$PROJECT_DIR$/.idea/modules/kodilla-spring-intro/kodilla-spring-intro_test.iml" group="kodilla-spring-intro" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/kodilla-spring/kodilla-spring_main.iml" filepath="$PROJECT_DIR$/.idea/modules/kodilla-spring/kodilla-spring_main.iml" group="kodilla-spring" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/kodilla-spring/kodilla-spring_test.iml" filepath="$PROJECT_DIR$/.idea/modules/kodilla-spring/kodilla-spring_test.iml" group="kodilla-spring" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/kodilla-stream.iml" filepath="$PROJECT_DIR$/.idea/modules/kodilla-stream.iml" group="kodilla-stream" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/kodilla-stream/kodilla-stream_main.iml" filepath="$PROJECT_DIR$/.idea/modules/kodilla-stream/kodilla-stream_main.iml" group="kodilla-stream" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/kodilla-stream/kodilla-stream_test.iml" filepath="$PROJECT_DIR$/.idea/modules/kodilla-stream/kodilla-stream_test.iml" group="kodilla-stream" />
