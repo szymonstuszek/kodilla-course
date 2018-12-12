@@ -8,12 +8,11 @@ public class LoggerTestSuite {
     @Test
     public void testGetLastLog() {
         //Given
-        Logger logger = new Logger();
         String firstLog = "First log test";
 
         //When
-        logger.log(firstLog);
-        String retrievedLog = logger.getLastLog();
+        Logger.getInstance().log(firstLog);
+        String retrievedLog = Logger.getInstance().getLastLog();
 
         //Then
         Assert.assertEquals(firstLog, retrievedLog);
