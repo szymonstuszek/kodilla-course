@@ -1,4 +1,5 @@
 package com.kodilla.patterns.prototype;
 
-public class Task {
+public final class Task {
+
 }
