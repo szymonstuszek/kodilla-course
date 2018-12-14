@@ -10,7 +10,7 @@ public final class TaskFactory {
     public static final String PAINTINGTASK = "PAINTINGTASK";
     public static final String DRIVINGTASK= "DRIVINGTASK";
 
-    public final Task makeShape(final String taskType) {
+    public final Task createTask(final String taskType) {
         switch (taskType) {
             case SHOPPINGTASK:
                 return new ShoppingTask("Shopping task", "grapes", 50.0);

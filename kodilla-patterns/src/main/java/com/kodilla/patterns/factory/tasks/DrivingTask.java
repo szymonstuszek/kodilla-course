@@ -14,7 +14,7 @@ public class DrivingTask implements Task{
 
     @Override
     public void executeTask() {
-        System.out.println(getTaskName() + " is in progress.");
+        this.executed = true;
     }
 
     @Override
