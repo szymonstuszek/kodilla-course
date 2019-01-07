@@ -19,9 +19,6 @@ public class InvoiceDaoTestSuite {
     @Autowired
     private InvoiceDao invoiceDao;
 
-    @Autowired
-    private ProductDao productDao;
-
     public static final String INVOICE_NAME = "TEST_INVOICE";
 
     @Test
