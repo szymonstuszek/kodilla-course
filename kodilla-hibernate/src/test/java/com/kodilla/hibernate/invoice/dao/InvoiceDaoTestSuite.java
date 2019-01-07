@@ -19,6 +19,9 @@ public class InvoiceDaoTestSuite {
     @Autowired
     private InvoiceDao invoiceDao;
 
+    @Autowired
+    private ProductDao productDao;
+
     public static final String INVOICE_NAME = "TEST_INVOICE";
 
     @Test
@@ -46,7 +49,6 @@ public class InvoiceDaoTestSuite {
         invoiceDao.save(invoice);
         int invoiceId = invoice.getId();
 
-        Invoice retrivedInvoice = invoiceDao.findById(invoiceId).orElse(null);
 
         //Then
         Assert.assertNotEquals(0, invoiceId);
