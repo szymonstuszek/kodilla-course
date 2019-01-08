@@ -9,12 +9,70 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.List;
+
 @SpringBootTest
 @RunWith(SpringRunner.class)
 public class CompanyDaoTestSuite {
 
+    public static final String COMPANY_SEARCH_STRING = "Software Machine Engineering";
+
     @Autowired
     CompanyDao companyDao;
+
+    @Autowired
+    EmployeeDao employeeDao;
+
+    @Test
+    public void testRetrieveByLastNameQuery() {
+        //Given
+        Employee johnSmith = new Employee("John", "Smith");
+
+        employeeDao.save(johnSmith);
+        int employeeId = johnSmith.getId();
+
+        //When
+        List<Employee> retrievedEmployees = employeeDao.retrieveByLastname("Smith");
+        Employee retrievedEmployee = retrievedEmployees.get(0);
+        String retrievedLastname = retrievedEmployee.getLastname();
+
+        //Then
+        Assert.assertEquals("Smith", retrievedLastname);
+        Assert.assertEquals(1, retrievedEmployees.size());
+
+        //Cleanup
+        employeeDao.deleteById(employeeId);
+    }
+
+    @Test
+    public void testFindCompaniesStartingWith() {
+        //Given
+        Company softwareMachine = new Company("Software Machine");
+        Company dataMaesters = new Company("Data Maesters");
+        Company greyMatter = new Company("Grey Matter");
+
+        //When
+        companyDao.save(softwareMachine);
+        int softwareMachineId = softwareMachine.getId();
+        companyDao.save(dataMaesters);
+        int dataMaestersId = dataMaesters.getId();
+        companyDao.save(greyMatter);
+        int greyMatterId = greyMatter.getId();
+
+        List<Company> companies = companyDao.retrieveCompanyStartingWith(COMPANY_SEARCH_STRING);
+
+        //Then
+        Assert.assertEquals(1, companies.size());
+
+        //CleanUp
+        try{
+            companyDao.deleteById(softwareMachineId);
+            companyDao.deleteById(dataMaestersId);
+            companyDao.deleteById(greyMatterId);
+        } catch (Exception e) {
+
+        }
+    }
 
     @Test
     public void testSaveManyToMany() {
