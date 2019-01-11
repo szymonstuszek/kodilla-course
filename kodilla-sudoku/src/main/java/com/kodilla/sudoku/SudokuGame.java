@@ -57,6 +57,7 @@ public class SudokuGame {
     }
 
     //check if still playing
+    //put into user input?
     public boolean finishGame() {
         System.out.println("Do you still want to play?");
         System.out.println("Type 'no' to quit");

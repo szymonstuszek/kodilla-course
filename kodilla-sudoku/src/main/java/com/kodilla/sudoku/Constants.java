@@ -9,8 +9,9 @@ public class Constants {
     public static final int NUMBER_OF_ELEMENTS_IN_BLOCK_ROW = 3;
     public static final int NUMBER_OF_ELEMENTS_IN_BLOCK_COLUMN = 3;
 
-    public static final String INSTRUCTIONS = "Provide column, row number and value \n" +
-            "or example 215 - column 2, row 1, value 5 \n" +
+    public static final String INSTRUCTIONS =
+            "Provide column, row number and value \n" +
+            "for example 215 - column 2, row 1, value 5 \n" +
             "Type SUDOKU to resolve the board.\n";
 
     public static ArrayList<Integer> valuesForEmptyFieldList() {

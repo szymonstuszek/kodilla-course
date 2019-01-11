@@ -3,6 +3,8 @@ package com.kodilla.sudoku;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.util.ArrayList;
+
 public class AlgorithmTestSuite {
 
     @Test
@@ -26,11 +28,11 @@ public class AlgorithmTestSuite {
         //When
         Algorithm.removeValueFromListsInRow(value, row);
 
-        boolean containsRemovedValue = row.getElementRow().contains(Integer.valueOf(value));
+        boolean containsRemovedValue = row.getElements().contains(Integer.valueOf(value));
 
-        for(int i = 0; i < row.getElementRow().size(); i++) {
+        for(int i = 0; i < row.getElements().size(); i++) {
             System.out.print("Row - element index: " + i + " avaiable values: ");
-            row.getElementRow().get(i).getAvailableValues().forEach(System.out::print);
+            row.getElements().get(i).getAvailableValues().forEach(System.out::print);
             System.out.println();
         }
 
@@ -49,14 +51,14 @@ public class AlgorithmTestSuite {
         //When
         Algorithm.removeValueFromListsInColumn(value, elementIndex, sudokuBoard);
         int numberOfAvailableValues = sudokuBoard.getBoard().get(rowToCheck)
-                .getElementRow().get(elementIndex)
+                .getElements().get(elementIndex)
                 .getAvailableValues().size();
 
         //use streams?
         for(int i = 0; i < Constants.NUMBER_OF_ROWS; i++) {
             System.out.print("Column - element index: " + i + " avaiable values: ");
             sudokuBoard.getBoard().get(i)
-                    .getElementRow().get(elementIndex)
+                    .getElements().get(elementIndex)
                         .getAvailableValues().forEach(System.out::print);
             System.out.println();
         }
@@ -66,16 +68,38 @@ public class AlgorithmTestSuite {
     }
 
     @Test
-    public void testRemoveValueFromListsInBlock() {
+    public void testCheckElementsInBlock() {
         //Given
         SudokuBoard sudokuBoard = new SudokuBoard();
-        int value = 3;
-        int columnIndex = 0;
-        int rowIndex = 0;
+        Algorithm algorithm = new Algorithm(sudokuBoard);
+
+        int column = 0;
+        int row = 0;
+        SudokuElement sudokuElement = sudokuBoard.getElementUnderGivenIndexes(0, 0);
 
         //When
-        Algorithm.removeValueFromListsInBlock(rowIndex, columnIndex, value, sudokuBoard);
+        algorithm.checkElementsInBlock(sudokuElement, 0,0);
 
+        //Then
+    }
+
+    @Test
+    public void testRemoveValuesFromList() {
+        //Given
+        ArrayList<Integer> list = new ArrayList<>();
+        list.add(1);
+        list.add(2);
+        list.add(3);
+        list.add(4);
+
+        //When
+        for (int i = 0; i < list.size(); i++) {
+            System.out.println("Removing: " + i);
+            list.remove(i);
+            System.out.println("List size: " + list.size());
+        }
+
+        System.out.println(list.size());
         //Then
     }
 }

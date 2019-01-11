@@ -27,7 +27,7 @@ public class UserInput {
         if(input.length() == 2) {
             return 2;
         }
-        return 100000;
+        return 9;
     }
 
     public int getRowIndex(String input) {
