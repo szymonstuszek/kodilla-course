@@ -27,6 +27,10 @@ public class UserInput {
         if(input.length() == 2) {
             return 2;
         }
+
+        if (input.equals("BACK")) {
+            return 3;
+        }
         return 9;
     }
 

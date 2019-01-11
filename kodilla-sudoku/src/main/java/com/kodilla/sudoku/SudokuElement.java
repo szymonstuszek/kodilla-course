@@ -43,6 +43,10 @@ public class SudokuElement {
         this.value = value;
     }
 
+    public void setAvailableValues(List<Integer> availableValues) {
+        this.availableValues = availableValues;
+    }
+
     @Override
     public String toString() {
         String fieldCharacter = " ";

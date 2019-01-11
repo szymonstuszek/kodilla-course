@@ -49,25 +49,28 @@ public class SudokuBoardTestSuite {
     public void testDeepClone() {
         //Given
         SudokuBoard sudokuBoard = new SudokuBoard();
+        sudokuBoard.initializeBoard();
         sudokuBoard.getBoard().get(0).getElements().get(0).setValue(1);
 
         SudokuBoard clonedBoard = null;
         try{
             clonedBoard = sudokuBoard.deepCopy();
-            System.out.println("What's inside: " + clonedBoard.getBoard().get(0).getElements().get(0).getValue());
         }catch(Exception e) {
             System.out.println("Could not copy board.");
         }
 
         sudokuBoard.getBoard().get(0).getElements().get(1).setValue(2);
+        sudokuBoard.getBoard().get(0).getElements().get(2).setValue(3);
 
         //When
+        int valueInFirstElementInOriginalBoard = sudokuBoard.getBoard().get(0).getElements().get(0).getValue();
+        int valueInFirstElementInClonedBoard = clonedBoard.getBoard().get(0).getElements().get(0).getValue();
 
         //Then
         System.out.println("Original board");
         System.out.println(sudokuBoard.toString());
         System.out.println("Cloned board");
         System.out.println(clonedBoard.toString());
-        Assert.assertNotEquals(sudokuBoard, clonedBoard);
+        Assert.assertEquals(valueInFirstElementInOriginalBoard, valueInFirstElementInClonedBoard);
     }
 }

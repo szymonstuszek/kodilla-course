@@ -1,5 +1,7 @@
 package com.kodilla.sudoku;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class SudokuGame {
@@ -7,6 +9,7 @@ public class SudokuGame {
    private SudokuBoard sudokuBoard;
    private UserInput userInput;
    private Algorithm algorithm;
+   private List<SudokuBoard> backtrack = new ArrayList<>();
 
    private boolean sudokuResolved = false;
 
@@ -20,6 +23,8 @@ public class SudokuGame {
     }
 
     private void runGame() {
+        sudokuBoard.initializeBoard();
+
         while(!sudokuResolved) {
             System.out.println(sudokuBoard.toString());
             System.out.println(Constants.INSTRUCTIONS);
@@ -33,20 +38,30 @@ public class SudokuGame {
                     case 0:
                         sudokuResolved = true;
                         break;
+
                     case 1:
                         int column = userInput.getColumnIndex(input);
                         int row = userInput.getRowIndex(input);
                         int value = userInput.getValue(input);
 
+                        addIntoBacktrack();
                         sudokuBoard.setValueOnBoard(column, row, value);
                         algorithm.checkSudokuBoard();
                         break;
+
                     case 2:
                         column = userInput.getColumnIndex(input);
                         row = userInput.getRowIndex(input);
 
                         sudokuBoard.checkAvailableValues(column, row);
                         break;
+
+                    case 3:
+                        System.out.println("Backtrack:");
+                        SudokuBoard boardToDisplay = backtrack.get(backtrack.size()-1);
+                        System.out.println(boardToDisplay);
+                        break;
+
                     default:
                         System.out.println("No such action");
                         break;
@@ -54,6 +69,16 @@ public class SudokuGame {
             }
         }
         System.out.println("Finished game - left loop");
+    }
+
+    private void addIntoBacktrack() {
+        SudokuBoard backtrackBoard = null;
+        try {
+            backtrackBoard = sudokuBoard.deepCopy();
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
+        backtrack.add(backtrackBoard);
     }
 
     //check if still playing

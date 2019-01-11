@@ -4,13 +4,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SudokuBoard extends Prototype {
-    private ArrayList<SudokuRow> board;
+    private List<SudokuRow> board = new ArrayList<>();
 
     public SudokuBoard() {
-        this.board = Constants.createBoard();
+
     }
 
-    public ArrayList<SudokuRow> getBoard() {
+    public void initializeBoard() {
+        for (int i = 0; i < 9; i++) {
+            SudokuRow row = new SudokuRow();
+            for (int j = 0; j < 9; j++) {
+                row.getElements().add(new SudokuElement());
+            }
+            board.add(row);
+        }
+    }
+
+    public List<SudokuRow> getBoard() {
         return board;
     }
 
@@ -79,9 +89,13 @@ public class SudokuBoard extends Prototype {
 
         for (SudokuRow row : board) {
             SudokuRow clonedRow = new SudokuRow();
-            for (SudokuElement element : row.getElements()) {
-                clonedRow.getElements().add(element);
 
+            for (SudokuElement element : row.getElements()) {
+                SudokuElement clonedElement = new SudokuElement();
+
+                clonedElement.setValue(element.getValue());
+                clonedElement.setAvailableValues(element.getAvailableValues());
+                clonedRow.getElements().add(clonedElement);
             }
             clonedBoard.getBoard().add(clonedRow);
         }
