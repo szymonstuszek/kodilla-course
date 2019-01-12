@@ -36,6 +36,7 @@ public class SudokuGame {
 
                 switch (action) {
                     case 0:
+                        algorithm.solveSudoku();
                         sudokuResolved = true;
                         break;
 

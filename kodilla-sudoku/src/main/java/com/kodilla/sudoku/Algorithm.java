@@ -1,9 +1,11 @@
 package com.kodilla.sudoku;
 
 import java.util.List;
+import java.util.Random;
 
 public class Algorithm {
     private SudokuBoard sudokuBoard;
+    private Random random = new Random();
 
     public Algorithm(SudokuBoard sudokuBoard) {
         this.sudokuBoard = sudokuBoard;
@@ -44,6 +46,37 @@ public class Algorithm {
         }
     }
 
+    public void solveSudoku() {
+        int emptyFieldCount = 0;
+
+        for(int row = 0; row < 9; row++) {
+            for (int column = 0; column < 9; column++) {
+                if (isSudokuElementEmpty(column, row)) {
+                    SudokuElement sudokuElement = sudokuBoard.getElementUnderGivenIndexes(column, row);
+                    System.out.println("Field " + (column + 1) + " " + (row + 1));
+                    sudokuBoard.checkAvailableValues(column, row);
+                    guessValue(sudokuElement);
+                    System.out.println(sudokuBoard.toString());
+                    checkSudokuBoard();
+
+                    try {
+                        Thread.sleep(500);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
+    }
+
+    private void guessValue(SudokuElement sudokuElement) {
+        List<Integer> availableValues = sudokuElement.getAvailableValues();
+        System.out.println("Guessing value from: " + availableValues.size());
+        availableValues.forEach(System.out::print);
+        int guessedValue = random.nextInt(availableValues.size());
+        sudokuElement.setValue(availableValues.get(guessedValue));
+    }
+
     public void checkSudokuBoard() {
         boolean anyActionMade = false;
 
@@ -62,11 +95,30 @@ public class Algorithm {
         }
     }
 
+    public void goBack() {
+        //if field empty and no available value for it
+        //if only option for field is already on board
+        //use backtrack
+    }
+
     public void checkElementsInRow(SudokuElement sudokuElement, int row) {
+        checkIfValueIsAssignedInRow(sudokuElement, row);
+        checkIfValueIsAllowedInRow(sudokuElement, row);
+
+
+
+        //if array is empty, and no value is assigned -> error -> backtrack
+    }
+
+    private void checkIfValueIsAssignedInRow(SudokuElement sudokuElement, int row){
         SudokuRow sudokuRow = sudokuBoard.getBoard().get(row);
 
         List<Integer> availableValues = sudokuElement.getAvailableValues();
 
+        //check for error?
+
+
+        //separate method to check if the value is assigned to another field
         for (int i = 0; i < availableValues.size(); i++) {
             for (int j = 0; j < 9; j++) {
                 int valueInCurrentField = sudokuRow.getElements().get(j).getValue();
@@ -78,6 +130,32 @@ public class Algorithm {
 
         sudokuElement.removeMarkedValues();
         checkIfHasOnlyOneAvailableValue(sudokuElement);
+    }
+
+    private void checkIfValueIsAllowedInRow(SudokuElement sudokuElement, int row) {
+        List<Integer> availableValues = sudokuElement.getAvailableValues();
+
+        //check for error?
+
+        for (int i = 0; i < availableValues.size(); i++) {
+            boolean isValueAvailableForAnotherField = false;
+
+            for (int column = 0; column < 9; column++) {
+                if (isSudokuElementEmpty(column, row)) {
+                    SudokuElement currentElement = sudokuBoard.getElementUnderGivenIndexes(column, row);
+                    List<Integer> possibleValuesInCurrentElement = currentElement.getAvailableValues();
+                    if (possibleValuesInCurrentElement.contains(Integer.valueOf(availableValues.get(i)))) {
+                        isValueAvailableForAnotherField = true;
+                    }
+                }
+            }
+
+            if (!isValueAvailableForAnotherField) {
+                System.out.println("Value is not available for another field: ");
+                System.out.println("Setting: " + availableValues.get(i) + " at row: " + row);
+                sudokuElement.setValue(availableValues.get(i));
+            }
+        }
     }
 
     public void checkElementsInColumn(SudokuElement sudokuElement, int column) {
@@ -116,6 +194,10 @@ public class Algorithm {
         checkIfHasOnlyOneAvailableValue(sudokuElement);
     }
 
+    private void checkIfValueIsPossibleForAnotherField() {
+
+    }
+
     public void removeNumberIfAlreadyInRow(List<Integer> values, int row) {
         SudokuRow sudokuRow = sudokuBoard.getBoard().get(row);
 
@@ -125,15 +207,7 @@ public class Algorithm {
 
             }
         }
-
     }
-
-
-
-    public void checkSudokuElementsInColumn() {
-
-    }
-
 
     public static void displayAvailableValuesForSudokuElement(SudokuElement sudokuElement) {
         System.out.print("Available values: ");
