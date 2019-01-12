@@ -47,7 +47,9 @@ public class SudokuGame {
 
                         addIntoBacktrack();
                         sudokuBoard.setValueOnBoard(column, row, value);
-                        algorithm.checkSudokuBoard();
+                        algorithm.updateSudokuBoard();
+
+                        sudokuResolved = algorithm.isSudokuResolved(sudokuBoard);
                         break;
 
                     case 2:
@@ -63,13 +65,23 @@ public class SudokuGame {
                         System.out.println(boardToDisplay);
                         break;
 
+                        //test case how to write in tests?
+                    case 4:
+                        sudokuBoard = Helper.createFilledOutBoard();
+                        sudokuBoard.getBoard().get(8).getElements().get(8).setValue(-1);
+                        algorithm.setSudokuBoard(sudokuBoard);
+                        algorithm.updateSudokuBoard();
+                        break;
+
                     default:
                         System.out.println("No such action");
                         break;
                 }
             }
         }
-        System.out.println("Finished game - left loop");
+
+        System.out.println(sudokuBoard.toString());
+        System.out.println(Constants.sudokuResolved);
     }
 
     private void addIntoBacktrack() {
@@ -95,5 +107,9 @@ public class SudokuGame {
         } else {
             return false;
         }
+    }
+
+    public void setSudokuBoard(SudokuBoard sudokuBoard) {
+        this.sudokuBoard = sudokuBoard;
     }
 }

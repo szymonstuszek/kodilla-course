@@ -73,4 +73,15 @@ public class SudokuBoardTestSuite {
         System.out.println(clonedBoard.toString());
         Assert.assertEquals(valueInFirstElementInOriginalBoard, valueInFirstElementInClonedBoard);
     }
+
+    @Test
+    public void testCreateFilledOutBoard() {
+        //Given
+        SudokuBoard sudokuBoard = Helper.createFilledOutBoard();
+
+        //When
+
+        //Then
+        System.out.println(sudokuBoard.toString());
+    }
 }

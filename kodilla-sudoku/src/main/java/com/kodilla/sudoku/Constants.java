@@ -14,6 +14,11 @@ public class Constants {
             "for example 215 - column 2, row 1, value 5 \n" +
             "Type SUDOKU to resolve the board.\n";
 
+    public static final String sudokuResolved =
+            "\n====================================\n" +
+                    "     Sudoku resolved!!!    \n" +
+                    "====================================\n\n";
+
     public static ArrayList<Integer> valuesForEmptyFieldList() {
         ArrayList<Integer> values = new ArrayList<>();
 
