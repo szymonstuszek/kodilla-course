@@ -12,34 +12,49 @@ public class Algorithm {
     private SudokuBoard sudokuBoard;
     private List<Backtrack> backtrack = new ArrayList<>();
     private Random random = new Random();
+    private int backtrackStepsCount = 0;
 
     public boolean solve() {
-        boolean isSolved = isSudokuSolved();
+        boolean isSolved = false;
 
-        if (!isSolved) {
-            guessValue();
-            boolean isBoardValid = checkIfBoardIsValid();
+        while (!isSolved) {
+            isSolved = isSudokuSolved();
 
-            if(isBoardValid) {
-                solve();
-                isSolved = isSudokuSolved();
+            if (!isSolved) {
+                guessValue();
+                boolean isBoardValid = checkIfBoardIsValid();
 
-            } else {
-                Backtrack previousBacktrack = backtrack.get(backtrack.size() - 1);
-                setSudokuBoard(previousBacktrack.getSudokuBoard());
-
-                SudokuElement sudokuElement =
-                        sudokuBoard.getElementUnderGivenIndexes(previousBacktrack.getColumn(), previousBacktrack.getRow());
-                List<Integer> availableValues = sudokuElement.getAvailableValues();
-
-                int lastGuessedValue = previousBacktrack.getValue();
-                availableValues.remove(Integer.valueOf(lastGuessedValue));
+                if(isBoardValid) {
+                    isSolved = isSudokuSolved();
 
 
+                } else {
+                    Backtrack previousBacktrack = backtrack.get(backtrack.size() - 1);
+                    SudokuElement sudokuElement =
+                            sudokuBoard.getElementUnderGivenIndexes(previousBacktrack.getColumn(), previousBacktrack.getRow());
+
+                    List<Integer> availableValues = sudokuElement.getAvailableValues();
+                    System.out.println("Backtracking to: " + previousBacktrack.getColumn() + " " +
+                            previousBacktrack.getRow());
+                    System.out.println(availableValues);
+
+                    if (availableValues.size() == 0) {
+                        previousBacktrack = backtrack.get(0);
+                        setSudokuBoard(previousBacktrack.getSudokuBoard());
+                        backtrack = new ArrayList<>();
+                    }
+
+                    try {
+                        Thread.sleep(200);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
+                    int lastGuessedValue = previousBacktrack.getValue();
+                    availableValues.remove(Integer.valueOf(lastGuessedValue));
+                }
             }
         }
-
-        System.out.println("Is it really solved: " + isSolved);
         return isSolved;
     }
 
@@ -51,7 +66,6 @@ public class Algorithm {
         hasErrors = checkIfBoardHasErrors();
 
         if(hasErrors) {
-            System.out.println("Board has errors");
             isBoardValid = false;
         }
 
@@ -75,9 +89,17 @@ public class Algorithm {
                         errorCount++;
                     }
 
-                    if (availableValues.size() == 1) {
-                        for (int i = 0; i < availableValues.size(); i++) {
+                    SudokuRow sudokuRow = sudokuBoard.getBoard().get(row);
 
+                    if (availableValues.size() > 0) {
+                        for (int i = 0; i < availableValues.size(); i++) {
+                            int currentValue = availableValues.get(i);
+                            for (int j = 0; j < 9; j++) {
+                                int valueInCurrentField = sudokuRow.getElements().get(j).getValue();
+                                if (currentValue == valueInCurrentField) {
+                                    errorCount++;
+                                }
+                            }
                         }
                     }
 
@@ -102,9 +124,6 @@ public class Algorithm {
                 int column = getNextEmptyColumnIndex();
                 int row = getNextEmptyRowIndex();
 
-                System.out.println("Putting into backtrack:");
-                System.out.println(sudokuBoard.toString());
-
                 SudokuBoard clonedBoard = null;
                 try {
                     clonedBoard = sudokuBoard.deepCopy();
@@ -115,6 +134,16 @@ public class Algorithm {
                 Backtrack backtrackEntry = new Backtrack(clonedBoard, column, row, guessedValue);
                 backtrack.add(backtrackEntry);
                 sudokuElement.setValue(guessedValue);
+                backtrackStepsCount++;
+                System.out.println("Guessing from: " + availableValues);
+                System.out.println("Setting value: " + guessedValue + " at: " + column + " " + row);
+                System.out.println("Backtrack steps: " + backtrackStepsCount);
+                System.out.println(sudokuBoard.toString());
+                try {
+                    Thread.sleep(200);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
 
             }
         }
@@ -227,8 +256,6 @@ public class Algorithm {
             }
 
             isAnyActionMade = actionsCount > 0;
-            System.out.println("Board checked: " + count + " times.");
-            System.out.println("Repeating the loop: " + isAnyActionMade);
         }
 
     }
