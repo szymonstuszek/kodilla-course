@@ -1,7 +1,9 @@
-package com.kodilla.sudoku;
+package com.kodilla.sudoku.board_examples;
 
 
-public class Helper {
+import com.kodilla.sudoku.SudokuBoard;
+
+public class ExampleBoards {
 
     public static SudokuBoard createFilledOutBoard() {
         //Given

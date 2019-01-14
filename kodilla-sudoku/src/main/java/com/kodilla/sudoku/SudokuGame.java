@@ -1,5 +1,7 @@
 package com.kodilla.sudoku;
 
+import com.kodilla.sudoku.exceptions.Backtrack;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -9,7 +11,6 @@ public class SudokuGame {
    private SudokuBoard sudokuBoard;
    private UserInput userInput;
    private Algorithm algorithm;
-   private List<SudokuBoard> backtrack = new ArrayList<>();
 
    private boolean sudokuResolved = false;
 
@@ -36,8 +37,11 @@ public class SudokuGame {
 
                 switch (action) {
                     case 0:
-                        algorithm.solveSudoku();
-                        sudokuResolved = true;
+                        sudokuResolved = false;
+
+                        while (!sudokuResolved) {
+                            sudokuResolved = algorithm.solve();
+                        }
                         break;
 
                     case 1:
@@ -45,11 +49,11 @@ public class SudokuGame {
                         int row = userInput.getRowIndex(input);
                         int value = userInput.getValue(input);
 
-                        addIntoBacktrack();
+//                        addIntoBacktrack(column, row, value);
                         sudokuBoard.setValueOnBoard(column, row, value);
                         algorithm.updateSudokuBoard();
 
-                        sudokuResolved = algorithm.isSudokuResolved(sudokuBoard);
+                        sudokuResolved = algorithm.isSudokuSolved();
                         break;
 
                     case 2:
@@ -60,17 +64,31 @@ public class SudokuGame {
                         break;
 
                     case 3:
-                        System.out.println("Backtrack:");
-                        SudokuBoard boardToDisplay = backtrack.get(backtrack.size()-1);
-                        System.out.println(boardToDisplay);
+//                        Backtrack backtrackEntry = backtrack.get(backtrack.size()-1);
+//                        System.out.println(backtrackEntry);
                         break;
 
                         //test case how to write in tests?
                     case 4:
-                        sudokuBoard = Helper.createFilledOutBoard();
-                        sudokuBoard.getBoard().get(8).getElements().get(8).setValue(-1);
-                        algorithm.setSudokuBoard(sudokuBoard);
-                        algorithm.updateSudokuBoard();
+//                        SudokuBoard boardToSet = new SudokuBoard();
+//                        boardToSet.initializeBoard();
+//
+//                        SudokuElement sudokuElement = boardToSet.getElementUnderGivenIndexes(0, 0);
+//                        sudokuElement.setValue(9);
+
+//                        System.out.println("Before");
+//                        System.out.println("Board to insert");
+//                        System.out.println(sudokuBoard.toString());
+//                        System.out.println("Original board");
+//                        System.out.println(algorithm.sudokuBoard.toString());
+//
+//                        algorithm.setSudokuBoard(boardToSet);
+//
+//                        System.out.println("After");
+//                        System.out.println("Board to insert");
+//                        System.out.println(sudokuBoard.toString());
+//                        System.out.println("Original board");
+//                        System.out.println(algorithm.sudokuBoard.toString());
                         break;
 
                     default:
@@ -84,14 +102,17 @@ public class SudokuGame {
         System.out.println(Constants.sudokuResolved);
     }
 
-    private void addIntoBacktrack() {
-        SudokuBoard backtrackBoard = null;
+    private void addIntoBacktrack(int column, int row, int value) {
+        SudokuBoard clonedBoard = null;
+
         try {
-            backtrackBoard = sudokuBoard.deepCopy();
+            clonedBoard = sudokuBoard.deepCopy();
         } catch (CloneNotSupportedException e) {
             e.printStackTrace();
         }
-        backtrack.add(backtrackBoard);
+
+        Backtrack backtrackEntry = new Backtrack(clonedBoard, column, row, value);
+//        backtrack.add(backtrackEntry);
     }
 
     //check if still playing
@@ -111,5 +132,9 @@ public class SudokuGame {
 
     public void setSudokuBoard(SudokuBoard sudokuBoard) {
         this.sudokuBoard = sudokuBoard;
+    }
+
+    public SudokuBoard getSudokuBoard() {
+        return sudokuBoard;
     }
 }

@@ -216,7 +216,7 @@ public class AlgorithmTestSuite {
         Algorithm algorithm = new Algorithm(sudokuBoard);
 
         //When
-        boolean resolved = algorithm.isSudokuResolved(sudokuBoard);
+        boolean resolved = algorithm.isSudokuSolved();
 
         //Then
         Assert.assertEquals(false, resolved);
@@ -239,7 +239,7 @@ public class AlgorithmTestSuite {
 
         allElements.get(0).setValue(-1);
 
-        boolean resolved = algorithm.isSudokuResolved(sudokuBoard);
+        boolean resolved = algorithm.isSudokuSolved();
 
         //Then
         System.out.println(sudokuBoard);
@@ -261,7 +261,7 @@ public class AlgorithmTestSuite {
         allElements.stream()
                 .forEach(sudokuElement -> sudokuElement.setValue(5));
 
-        boolean resolved = algorithm.isSudokuResolved(sudokuBoard);
+        boolean resolved = algorithm.isSudokuSolved();
 
         //Then
         System.out.println(sudokuBoard);

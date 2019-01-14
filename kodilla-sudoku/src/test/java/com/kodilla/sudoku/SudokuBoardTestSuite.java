@@ -1,5 +1,6 @@
 package com.kodilla.sudoku;
 
+import com.kodilla.sudoku.board_examples.ExampleBoards;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -77,7 +78,7 @@ public class SudokuBoardTestSuite {
     @Test
     public void testCreateFilledOutBoard() {
         //Given
-        SudokuBoard sudokuBoard = Helper.createFilledOutBoard();
+        SudokuBoard sudokuBoard = ExampleBoards.createFilledOutBoard();
 
         //When
 

@@ -47,6 +47,7 @@ public class SudokuElement {
         this.availableValues = availableValues;
     }
 
+
     @Override
     public String toString() {
         String fieldCharacter = " ";
