@@ -3,6 +3,7 @@ package com.kodilla.sudoku;
 import com.kodilla.sudoku.exceptions.Backtrack;
 
 import java.sql.SQLOutput;
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -10,7 +11,7 @@ import java.util.stream.Collectors;
 
 public class Algorithm {
     private SudokuBoard sudokuBoard;
-    private List<Backtrack> backtrack = new ArrayList<>();
+    private ArrayDeque<Backtrack> backtrack = new ArrayDeque<>();
     private Random random = new Random();
     private int backtrackStepsCount = 0;
 
@@ -24,25 +25,24 @@ public class Algorithm {
                 guessValue();
                 boolean isBoardValid = checkIfBoardIsValid();
 
+                System.out.println("Is board valid: " + isBoardValid);
+
                 if(isBoardValid) {
                     isSolved = isSudokuSolved();
 
 
                 } else {
-                    Backtrack previousBacktrack = backtrack.get(backtrack.size() - 1);
+                    Backtrack previousBacktrack = backtrack.pollLast();
+                    SudokuBoard boardFromBacktrack = previousBacktrack.getSudokuBoard();
                     SudokuElement sudokuElement =
-                            sudokuBoard.getElementUnderGivenIndexes(previousBacktrack.getColumn(), previousBacktrack.getRow());
+                            boardFromBacktrack.getElementUnderGivenIndexes(previousBacktrack.getColumn(), previousBacktrack.getRow());
 
                     List<Integer> availableValues = sudokuElement.getAvailableValues();
+
                     System.out.println("Backtracking to: " + previousBacktrack.getColumn() + " " +
                             previousBacktrack.getRow());
                     System.out.println(availableValues);
-
-                    if (availableValues.size() == 0) {
-                        previousBacktrack = backtrack.get(0);
-                        setSudokuBoard(previousBacktrack.getSudokuBoard());
-                        backtrack = new ArrayList<>();
-                    }
+                    System.out.println(boardFromBacktrack.toString());
 
                     try {
                         Thread.sleep(200);
@@ -52,6 +52,8 @@ public class Algorithm {
 
                     int lastGuessedValue = previousBacktrack.getValue();
                     availableValues.remove(Integer.valueOf(lastGuessedValue));
+
+                    setSudokuBoard(boardFromBacktrack);
                 }
             }
         }
@@ -73,7 +75,6 @@ public class Algorithm {
     }
 
     private boolean checkIfBoardHasErrors() {
-        boolean hasErrors = false;
         int errorCount = 0;
 
         //check if empty and no value assigned
@@ -87,24 +88,69 @@ public class Algorithm {
                     List<Integer> availableValues = sudokuElement.getAvailableValues();
                     if (availableValues.size() == 0) {
                         errorCount++;
+                        System.out.println("Error at column: " + column + " row: " + row + " no elements to put in");
                     }
 
-                    SudokuRow sudokuRow = sudokuBoard.getBoard().get(row);
+                    if (availableValues.size() == 1) {
+                        int onlyValue = availableValues.get(0);
 
-                    if (availableValues.size() > 0) {
-                        for (int i = 0; i < availableValues.size(); i++) {
-                            int currentValue = availableValues.get(i);
-                            for (int j = 0; j < 9; j++) {
-                                int valueInCurrentField = sudokuRow.getElements().get(j).getValue();
-                                if (currentValue == valueInCurrentField) {
+                        //row
+                        for (int i = 0; i < Constants.NUMBER_OF_ROWS; i++) {
+                            SudokuElement currentElement = sudokuBoard.getElementUnderGivenIndexes(i, row);
+                            int valueInCurrentElement = currentElement.getValue();
+                            if(valueInCurrentElement == onlyValue) {
+                                errorCount++;
+                            }
+                        }
+
+                        //column
+                        for (int j = 0; j < Constants.NUMBER_OF_ROWS; j++) {
+                            SudokuElement currentElement = sudokuBoard.getElementUnderGivenIndexes(column, j);
+                            int valueInCurrentElement = currentElement.getValue();
+                            System.out.println();
+                            if(valueInCurrentElement == onlyValue) {
+                                errorCount++;
+                            }
+                        }
+
+                        //block
+                        int r = row - row % 3;
+                        int c = column - column % 3;
+
+                        for (int i = r; i < r + 3; i++) {
+                            for (int j = c; j < c + 3; j++) {
+                                int valueInCurrentField = sudokuBoard.getBoard().get(i).getElements().get(j).getValue();
+                                if(onlyValue == valueInCurrentField) {
                                     errorCount++;
                                 }
                             }
                         }
+                        System.out.println("Error at column: " + column + " row: " + row + " value already present");
+
                     }
+
+//                    SudokuRow sudokuRow = sudokuBoard.getBoard().get(row);
+//
+//                    if (availableValues.size() > 0) {
+//                        for (int i = 0; i < availableValues.size(); i++) {
+//                            int currentValue = availableValues.get(i);
+//                            for (int j = 0; j < 9; j++) {
+//                                int valueInCurrentField = sudokuRow.getElements().get(j).getValue();
+//                                if (currentValue == valueInCurrentField) {
+//                                    errorCount++;
+//                                }
+//                            }
+//                        }
+//                    }
 
                 }
             }
+        }
+
+        try {
+            Thread.sleep(200);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
 
         return errorCount > 0;
@@ -117,6 +163,7 @@ public class Algorithm {
 
         if (sudokuElement != null) {
             List<Integer> availableValues = sudokuElement.getAvailableValues();
+            System.out.println("guess value: " + availableValues);
 
             if (availableValues.size() > 0) {
                 int indexOfGuessedValue = random.nextInt(availableValues.size());
@@ -137,7 +184,6 @@ public class Algorithm {
                 backtrackStepsCount++;
                 System.out.println("Guessing from: " + availableValues);
                 System.out.println("Setting value: " + guessedValue + " at: " + column + " " + row);
-                System.out.println("Backtrack steps: " + backtrackStepsCount);
                 System.out.println(sudokuBoard.toString());
                 try {
                     Thread.sleep(200);
@@ -156,6 +202,7 @@ public class Algorithm {
             for (int column = 0; column < 9; column++) {
                 sudokuElement = sudokuBoard.getElementUnderGivenIndexes(column, row);
                 if (sudokuElement.getValue() == -1) {
+                    System.out.println("Next empty element at column: " + column + " row: " + row);
                     return sudokuElement;
                 }
             }
