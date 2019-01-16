@@ -38,6 +38,8 @@ public class SudokuGame {
                 switch (action) {
                     case 0:
                         algorithm.solve();
+                        System.out.println("Solved!!!!!!!!!!!");
+                        System.out.println(sudokuBoard.toString());
                         break;
 
                     case 1:

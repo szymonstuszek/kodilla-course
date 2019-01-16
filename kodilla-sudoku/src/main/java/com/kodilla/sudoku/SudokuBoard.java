@@ -2,9 +2,10 @@ package com.kodilla.sudoku;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class SudokuBoard extends Prototype {
-    private List<SudokuRow> board = new ArrayList<>();
+    private List<SudokuRow> rows = new ArrayList<>();
 
     public SudokuBoard() {
 
@@ -16,16 +17,16 @@ public class SudokuBoard extends Prototype {
             for (int j = 0; j < 9; j++) {
                 row.getElements().add(new SudokuElement());
             }
-            board.add(row);
+            rows.add(row);
         }
     }
 
-    public List<SudokuRow> getBoard() {
-        return board;
+    public List<SudokuRow> getRows() {
+        return rows;
     }
 
     public SudokuElement getElementUnderGivenIndexes(int column, int row) {
-        SudokuRow chosenRow = board.get(row);
+        SudokuRow chosenRow = rows.get(row);
         SudokuElement chosenElement = chosenRow.getElements().get(column);
         return chosenElement;
     }
@@ -56,22 +57,7 @@ public class SudokuBoard extends Prototype {
                 isValidValue(column, row, value)) {
             SudokuElement chosenElement = getElementUnderGivenIndexes(column, row);
             chosenElement.setValue(value);
-//            chosenElement.emptyAvailableValues();
         }
-    }
-
-    public List<Integer> getValuesAlreadyAssignedInRow(int row) {
-        List<Integer> valuesAlreadyAssignedInRow = new ArrayList<>();
-        SudokuRow sudokuRow = board.get(row);
-        for (int i = 0; i < 9; i++) {
-            int valueInCurrentField = sudokuRow.getElements().get(i).getValue();
-            if(valueInCurrentField != -1 &&
-                    !valuesAlreadyAssignedInRow.contains(Integer.valueOf(valueInCurrentField))) {
-                valuesAlreadyAssignedInRow.add(valueInCurrentField);
-            }
-        }
-        System.out.println("Number of values in row: " + valuesAlreadyAssignedInRow.size());
-        return valuesAlreadyAssignedInRow;
     }
 
     public void checkAvailableValues(int column, int row) {
@@ -85,33 +71,41 @@ public class SudokuBoard extends Prototype {
 
     public SudokuBoard deepCopy() throws CloneNotSupportedException {
         SudokuBoard clonedBoard = (SudokuBoard) super.clone();
-        clonedBoard.board = new ArrayList<>();
+        clonedBoard.rows = new ArrayList<>();
 
-        for (SudokuRow row : board) {
+        for (SudokuRow row : rows) {
             SudokuRow clonedRow = new SudokuRow();
 
             for (SudokuElement element : row.getElements()) {
                 SudokuElement clonedElement = new SudokuElement();
 
                 clonedElement.setValue(element.getValue());
-                clonedElement.setAvailableValues(element.getAvailableValues());
+//                clonedElement.setAvailableValues(element.getAvailableValues());
                 clonedRow.getElements().add(clonedElement);
             }
-            clonedBoard.getBoard().add(clonedRow);
+            clonedBoard.getRows().add(clonedRow);
         }
 
         return clonedBoard;
+    }
+
+    public List<SudokuElement> getAllElementsOnBoard() {
+        List<SudokuElement> allElementsOnBoard = rows.stream()
+                .flatMap(sudokuRow -> sudokuRow.getElements().stream())
+                .collect(Collectors.toList());
+
+        return allElementsOnBoard;
     }
 
     @Override
     public String toString() {
         String boardString = "";
 
-        for (int i = 0; i < board.size(); i++) {
+        for (int i = 0; i < rows.size(); i++) {
             if(i == 8) {
-                boardString += board.get(i).toString();
+                boardString += rows.get(i).toString();
             } else {
-                boardString += board.get(i).toString() + "\n";
+                boardString += rows.get(i).toString() + "\n";
             }
 
         }

@@ -7,3 +7,4 @@ public class Prototype<T> implements Cloneable {
         return (T) super.clone();
     }
 }
+

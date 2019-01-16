@@ -24,7 +24,7 @@ public class SudokuBoardTestSuite {
         SudokuBoard board = new SudokuBoard();
 
         //When
-        board.getBoard().get(1).getElements().get(4).setValue(4);
+        board.getRows().get(1).getElements().get(4).setValue(4);
 
         //Then
         System.out.println(board.toString());
@@ -51,7 +51,7 @@ public class SudokuBoardTestSuite {
         //Given
         SudokuBoard sudokuBoard = new SudokuBoard();
         sudokuBoard.initializeBoard();
-        sudokuBoard.getBoard().get(0).getElements().get(0).setValue(1);
+        sudokuBoard.getRows().get(0).getElements().get(0).setValue(1);
 
         SudokuBoard clonedBoard = null;
         try{
@@ -60,12 +60,12 @@ public class SudokuBoardTestSuite {
             System.out.println("Could not copy board.");
         }
 
-        sudokuBoard.getBoard().get(0).getElements().get(1).setValue(2);
-        sudokuBoard.getBoard().get(0).getElements().get(2).setValue(3);
+        sudokuBoard.getRows().get(0).getElements().get(1).setValue(2);
+        sudokuBoard.getRows().get(0).getElements().get(2).setValue(3);
 
         //When
-        int valueInFirstElementInOriginalBoard = sudokuBoard.getBoard().get(0).getElements().get(0).getValue();
-        int valueInFirstElementInClonedBoard = clonedBoard.getBoard().get(0).getElements().get(0).getValue();
+        int valueInFirstElementInOriginalBoard = sudokuBoard.getRows().get(0).getElements().get(0).getValue();
+        int valueInFirstElementInClonedBoard = clonedBoard.getRows().get(0).getElements().get(0).getValue();
 
         //Then
         System.out.println("Original board");
