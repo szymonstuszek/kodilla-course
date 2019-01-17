@@ -8,7 +8,6 @@ public class ExampleBoards {
     public static SudokuBoard createFilledOutBoard() {
         //Given
         SudokuBoard sudokuBoard = new SudokuBoard();
-        sudokuBoard.initializeBoard();
 
         //first row
         sudokuBoard.getRows().get(0).getElements().get(0).setValue(1);
@@ -114,9 +113,8 @@ public class ExampleBoards {
         return sudokuBoard;
     }
 
-    public SudokuBoard createBoardForErrorChecks() {
+    public static SudokuBoard createBoardForErrorChecks() {
         SudokuBoard sudokuBoard = new SudokuBoard();
-        sudokuBoard.initializeBoard();
 
         sudokuBoard.getRows().get(0).getElements().get(0).setValue(1);
         sudokuBoard.getRows().get(0).getElements().get(1).setValue(2);

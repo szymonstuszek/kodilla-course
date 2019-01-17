@@ -16,8 +16,16 @@ public class SudokuElement {
         return value;
     }
 
+    public void setValue(int value) {
+        this.value = value;
+    }
+
     public List<Integer> getAvailableValues() {
         return availableValues;
+    }
+
+    public boolean isEmpty() {
+        return this.value == Constants.EMPTY_FIELD;
     }
 
     public void removeValueFromAvailableValues(int i) {
@@ -35,18 +43,9 @@ public class SudokuElement {
         availableValues.removeAll(Collections.singleton(0));
     }
 
-    public void emptyAvailableValues() {
-        availableValues.clear();
-    }
-
-    public void setValue(int value) {
-        this.value = value;
-    }
-
     public void setAvailableValues(List<Integer> availableValues) {
         this.availableValues = availableValues;
     }
-
 
     @Override
     public String toString() {

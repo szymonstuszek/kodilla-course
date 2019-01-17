@@ -50,7 +50,6 @@ public class SudokuBoardTestSuite {
     public void testDeepClone() {
         //Given
         SudokuBoard sudokuBoard = new SudokuBoard();
-        sudokuBoard.initializeBoard();
         sudokuBoard.getRows().get(0).getElements().get(0).setValue(1);
 
         SudokuBoard clonedBoard = null;
@@ -73,6 +72,21 @@ public class SudokuBoardTestSuite {
         System.out.println("Cloned board");
         System.out.println(clonedBoard.toString());
         Assert.assertEquals(valueInFirstElementInOriginalBoard, valueInFirstElementInClonedBoard);
+    }
+
+    @Test
+    public void testGetRandomEmptyElement() {
+        //Given
+        SudokuBoard sudokuBoard = ExampleBoards.createFilledOutBoard();
+
+        SudokuElement element = sudokuBoard.getElementUnderGivenIndexes(0, 0);
+        element.setValue(-1);
+
+        //When
+        sudokuBoard.getRandomEmptyElement();
+
+        //Then
+        System.out.println(sudokuBoard.toString());
     }
 
     @Test

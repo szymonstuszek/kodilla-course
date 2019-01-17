@@ -24,7 +24,6 @@ public class SudokuGame {
     }
 
     private void runGame() {
-        sudokuBoard.initializeBoard();
 
         while(!sudokuResolved) {
             System.out.println(sudokuBoard.toString());

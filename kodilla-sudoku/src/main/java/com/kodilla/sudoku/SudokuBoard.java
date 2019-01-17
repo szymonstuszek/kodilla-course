@@ -2,21 +2,16 @@ package com.kodilla.sudoku;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 public class SudokuBoard extends Prototype {
+    private Random random = new Random();
     private List<SudokuRow> rows = new ArrayList<>();
 
     public SudokuBoard() {
-
-    }
-
-    public void initializeBoard() {
-        for (int i = 0; i < 9; i++) {
+        for (int i = 0; i < Constants.SIZE_OF_BOARD; i++) {
             SudokuRow row = new SudokuRow();
-            for (int j = 0; j < 9; j++) {
-                row.getElements().add(new SudokuElement());
-            }
             rows.add(row);
         }
     }
@@ -25,16 +20,30 @@ public class SudokuBoard extends Prototype {
         return rows;
     }
 
+    public SudokuElement getRandomEmptyElement() {
+        SudokuElement element = new SudokuElement();
+        boolean isThisAnEmptyElement = false;
+
+        while (!isThisAnEmptyElement) {
+            int randomColumn = random.nextInt(Constants.SIZE_OF_BOARD);
+            int randomRow = random.nextInt(Constants.SIZE_OF_BOARD);
+
+            element = getElementUnderGivenIndexes(randomColumn, randomRow);
+            isThisAnEmptyElement = element.isEmpty();
+        }
+
+        return element;
+    }
+
     public SudokuElement getElementUnderGivenIndexes(int column, int row) {
         SudokuRow chosenRow = rows.get(row);
-        SudokuElement chosenElement = chosenRow.getElements().get(column);
-        return chosenElement;
+        return chosenRow.getElements().get(column);
     }
 
     private boolean isFieldEmpty(int column, int row) {
         SudokuElement chosenElement = getElementUnderGivenIndexes(column, row);
 
-        if(chosenElement.getValue() == -1) {
+        if(chosenElement.isEmpty()) {
             return true;
         } else {
             System.out.println("There is already a value in this field!");
@@ -44,6 +53,7 @@ public class SudokuBoard extends Prototype {
 
     private boolean isValidValue(int column, int row, int value) {
         SudokuElement sudokuElement = getElementUnderGivenIndexes(column, row);
+
         if (sudokuElement.getAvailableValues().contains(value)) {
             return true;
         } else {
@@ -64,7 +74,8 @@ public class SudokuBoard extends Prototype {
         SudokuElement chosenElement = getElementUnderGivenIndexes(column, row);
         List<Integer> values = chosenElement.getAvailableValues();
 
-        System.out.println("Number of available values: " + values.size() +  " :");
+        System.out.println("Count of available values: " + values.size() +
+                " at field column " + (column + 1) + " row " + (row + 1));
         values.forEach(System.out::print);
         System.out.println();
     }
@@ -75,14 +86,16 @@ public class SudokuBoard extends Prototype {
 
         for (SudokuRow row : rows) {
             SudokuRow clonedRow = new SudokuRow();
+            List<SudokuElement> elements = new ArrayList<>();
 
             for (SudokuElement element : row.getElements()) {
                 SudokuElement clonedElement = new SudokuElement();
 
                 clonedElement.setValue(element.getValue());
-//                clonedElement.setAvailableValues(element.getAvailableValues());
-                clonedRow.getElements().add(clonedElement);
+                elements.add(clonedElement);
             }
+
+            clonedRow.setElements(elements);
             clonedBoard.getRows().add(clonedRow);
         }
 
@@ -95,6 +108,39 @@ public class SudokuBoard extends Prototype {
                 .collect(Collectors.toList());
 
         return allElementsOnBoard;
+    }
+
+    public List<SudokuElement> getElementsInRow(int row) {
+        List<SudokuRow> allRows = getRows();
+        return allRows.get(row).getElements();
+    }
+
+    public List<SudokuElement> getElementsInColumn(int column) {
+        List<SudokuElement> allElementsFromColumn = new ArrayList<>();
+        List<SudokuRow> allRows = getRows();
+
+        for (int row = 0; row < Constants.SIZE_OF_BOARD; row++) {
+            List<SudokuElement> elementsFromRow = allRows.get(row).getElements();
+            SudokuElement elementFromColumn = elementsFromRow.get(column);
+            allElementsFromColumn.add(elementFromColumn);
+        }
+
+        return allElementsFromColumn;
+    }
+
+    public List<SudokuElement> getElementsInBlock(int column, int row) {
+        List<SudokuElement> allElementsFromBlock = new ArrayList<>();
+        int r = row - row % 3;
+        int c = column - column % 3;
+
+        for (int i = r; i < r + 3; i++) {
+            for (int j = c; j < c + 3; j++) {
+                SudokuElement elementInBlock = getElementUnderGivenIndexes(j, i);
+                allElementsFromBlock.add(elementInBlock);
+            }
+        }
+
+        return allElementsFromBlock;
     }
 
     @Override

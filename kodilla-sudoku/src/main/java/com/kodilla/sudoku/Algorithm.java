@@ -123,7 +123,7 @@ public class Algorithm {
                         int onlyValue = availableValues.get(0);
 
                         //row
-                        for (int i = 0; i < Constants.NUMBER_OF_ROWS; i++) {
+                        for (int i = 0; i < Constants.SIZE_OF_BOARD; i++) {
                             SudokuElement currentElement = sudokuBoard.getElementUnderGivenIndexes(i, row);
                             int valueInCurrentElement = currentElement.getValue();
                             if(valueInCurrentElement == onlyValue) {
@@ -132,7 +132,7 @@ public class Algorithm {
                         }
 
                         //column
-                        for (int j = 0; j < Constants.NUMBER_OF_ROWS; j++) {
+                        for (int j = 0; j < Constants.SIZE_OF_BOARD; j++) {
                             SudokuElement currentElement = sudokuBoard.getElementUnderGivenIndexes(column, j);
                             int valueInCurrentElement = currentElement.getValue();
                             System.out.println();
