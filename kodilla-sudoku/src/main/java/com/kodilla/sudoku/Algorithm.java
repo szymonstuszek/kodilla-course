@@ -13,7 +13,7 @@ public class Algorithm {
     private ExampleBoards exampleBoards = new ExampleBoards();
     private SudokuBoard sudokuBoard;
     private ArrayDeque<Backtrack> backtrack = new ArrayDeque<>();
-    private Backtrack backtrackHistory = new Backtrack(new SudokuBoard(), 0, 0, 0);
+    private Backtrack backtrackHistory;
     private Random random = new Random();
     private int backtrackStepsCount = 0;
     private boolean entryBoardSaved = false;
@@ -79,6 +79,7 @@ public class Algorithm {
                         setSudokuBoard(history);
                         updateSudokuBoard();
                         backtrackStepsCount = 0;
+                        backtrack = new ArrayDeque<>();
                     }
 
                 }
