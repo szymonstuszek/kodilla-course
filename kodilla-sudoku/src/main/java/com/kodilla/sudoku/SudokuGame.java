@@ -48,9 +48,9 @@ public class SudokuGame {
 
 //                        addIntoBacktrack(column, row, value);
                         sudokuBoard.setValueOnBoard(column, row, value);
-                        algorithm.updateSudokuBoard();
+//                        algorithm.updateSudokuBoard();
 
-                        sudokuResolved = algorithm.isSudokuSolved();
+//                        sudokuResolved = algorithm.isSudokuSolved();
                         break;
 
                     case 2:

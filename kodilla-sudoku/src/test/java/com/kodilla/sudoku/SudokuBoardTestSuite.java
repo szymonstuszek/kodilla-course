@@ -75,21 +75,6 @@ public class SudokuBoardTestSuite {
     }
 
     @Test
-    public void testGetRandomEmptyElement() {
-        //Given
-        SudokuBoard sudokuBoard = ExampleBoards.createFilledOutBoard();
-
-        SudokuElement element = sudokuBoard.getElementUnderGivenIndexes(0, 0);
-        element.setValue(-1);
-
-        //When
-        sudokuBoard.getRandomEmptyElement();
-
-        //Then
-        System.out.println(sudokuBoard.toString());
-    }
-
-    @Test
     public void testCreateFilledOutBoard() {
         //Given
         SudokuBoard sudokuBoard = ExampleBoards.createFilledOutBoard();
@@ -98,5 +83,64 @@ public class SudokuBoardTestSuite {
 
         //Then
         System.out.println(sudokuBoard.toString());
+    }
+
+    @Test
+    public void testGetElementsInRow() {
+        //Given
+        SudokuBoard sudokuBoard = ExampleBoards.createBoardForErrorChecks();
+
+        //When
+        List<SudokuElement> elements = sudokuBoard.getElementsInRow(3);
+
+        elements.stream()
+                .forEach(e -> e.setValue(5));
+
+        //Then
+        System.out.println(sudokuBoard.toString());
+    }
+
+    @Test
+    public void testGetElementsInColumn() {
+        //Given
+        SudokuBoard sudokuBoard = ExampleBoards.createBoardForErrorChecks();
+
+        //When
+        List<SudokuElement> elements = sudokuBoard.getElementsInColumn(3);
+
+        elements.stream()
+                .forEach(e -> e.setValue(5));
+
+        //Then
+        System.out.println(sudokuBoard.toString());
+    }
+
+    @Test
+    public void testGetElementsInBlock() {
+        //Given
+        SudokuBoard sudokuBoard = ExampleBoards.createBoardForErrorChecks();
+
+        //When
+        List<SudokuElement> elements = sudokuBoard.getElementsInBlock(8,1);
+
+        elements.forEach(element -> element.setValue(9));
+
+        //Then
+        System.out.println(sudokuBoard);
+    }
+
+    @Test
+    public void testIsAnyElementEmpty() {
+        //Given
+        SudokuBoard sudokuBoard = ExampleBoards.createBoardForErrorChecks();
+        SudokuBoard fullBoard = ExampleBoards.createFilledOutBoard();
+
+        //When
+
+
+        //Then
+        Assert.assertEquals(true, sudokuBoard.isAnyElementEmpty());
+        Assert.assertEquals(false, fullBoard.isAnyElementEmpty());
+
     }
 }

@@ -20,21 +20,6 @@ public class SudokuBoard extends Prototype {
         return rows;
     }
 
-    public SudokuElement getRandomEmptyElement() {
-        SudokuElement element = new SudokuElement();
-        boolean isThisAnEmptyElement = false;
-
-        while (!isThisAnEmptyElement) {
-            int randomColumn = random.nextInt(Constants.SIZE_OF_BOARD);
-            int randomRow = random.nextInt(Constants.SIZE_OF_BOARD);
-
-            element = getElementUnderGivenIndexes(randomColumn, randomRow);
-            isThisAnEmptyElement = element.isEmpty();
-        }
-
-        return element;
-    }
-
     public SudokuElement getElementUnderGivenIndexes(int column, int row) {
         SudokuRow chosenRow = rows.get(row);
         return chosenRow.getElements().get(column);
@@ -102,12 +87,29 @@ public class SudokuBoard extends Prototype {
         return clonedBoard;
     }
 
-    public List<SudokuElement> getAllElementsOnBoard() {
+    private List<SudokuElement> getAllElementsOnBoard() {
         List<SudokuElement> allElementsOnBoard = rows.stream()
                 .flatMap(sudokuRow -> sudokuRow.getElements().stream())
                 .collect(Collectors.toList());
 
         return allElementsOnBoard;
+    }
+
+    public boolean isAnyElementEmpty() {
+        List<SudokuElement> allElements = getAllElementsOnBoard();
+
+        return allElements.stream()
+                .anyMatch(e -> e.getValue() == -1);
+    }
+
+    public boolean isBoardSolved() {
+        List<SudokuElement> allElements = getAllElementsOnBoard();
+        boolean allElementsFilledOut;
+
+        allElementsFilledOut = allElements.stream()
+                .allMatch(e -> e.getValue() != -1);
+
+        return allElementsFilledOut;
     }
 
     public List<SudokuElement> getElementsInRow(int row) {
