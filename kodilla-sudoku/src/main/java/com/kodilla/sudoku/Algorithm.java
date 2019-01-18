@@ -16,6 +16,10 @@ public class Algorithm {
     private ArrayDeque<Backtrack> backtrack = new ArrayDeque<>();
     private List<Backtrack> backtrackHistory = new ArrayList<>();
     private int backtrackStepsCount = 0;
+    private int totalSteps = 0;
+
+    private SudokuBoard entryBoard;
+    private boolean entryBoardSaved = false;
 
     public Algorithm(SudokuBoard sudokuBoard) {
         this.sudokuBoard = sudokuBoard;
@@ -31,24 +35,22 @@ public class Algorithm {
         boolean isThereASolution = true;
         boolean isBoardSolved = false;
 
-        sudokuBoard = exampleBoards.createBoardForErrorChecks();
-
         while (!isBoardSolved && isThereASolution) {
             boolean isBoardValid = checker.checkIfBoardIsValid();
-            System.out.println("Before guessing: " + sudokuBoard.toString());
 
             try {
-                Thread.sleep(500);
+                Thread.sleep(100);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
 
             if(isBoardValid) {
+                System.out.println("Options before guesssing");
                 guessValue();
                 System.out.println("Guessing: " + sudokuBoard.toString());
 
                 try {
-                    Thread.sleep(500);
+                    Thread.sleep(100);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -58,10 +60,9 @@ public class Algorithm {
 
                 if(backtrack.size() > 0) {
                     goBack();
-                    System.out.println("Going back: " + sudokuBoard.toString());
-
+                    System.out.println("Options from backtrack: " + sudokuBoard.toString());
                     try {
-                        Thread.sleep(500);
+                        Thread.sleep(100);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -72,15 +73,17 @@ public class Algorithm {
                     System.out.println("No solution");
                 }
             }
-
             isBoardSolved = sudokuBoard.isBoardSolved();
         }
+        System.out.println("Finished in: " + totalSteps + " steps");
     }
+
 
     public void guessValue() {
         boolean canSetValueInElement = false;
         List<Integer> availableValues;
         SudokuElement element = null;
+        totalSteps++;
 
         int column = -1, row = -1, guessedValueIndex, guessedValue, countOfAvailableValues;
 
@@ -100,15 +103,38 @@ public class Algorithm {
                 guessedValueIndex = random.nextInt(countOfAvailableValues);
                 guessedValue = availableValues.get(guessedValueIndex);
 
+                SudokuBoard clonedBoard = null;
+                try {
+                    clonedBoard = sudokuBoard.deepCopy();
+                } catch (CloneNotSupportedException e) {
+                    e.printStackTrace();
+                }
+
+
+                if (!entryBoardSaved) {
+                    SudokuBoard clonedEntryBoard = null;
+                    try {
+                        clonedEntryBoard = sudokuBoard.deepCopy();
+                    } catch (CloneNotSupportedException e) {
+                        e.printStackTrace();
+                    }
+
+                    entryBoard = clonedEntryBoard;
+                    entryBoardSaved = true;
+                }
+
+
                 sudokuBoard.setValueOnBoard(column, row, guessedValue);
 
-                Backtrack backtrackEntry = new Backtrack(sudokuBoard, column, row, guessedValue);
+                Backtrack backtrackEntry = new Backtrack(clonedBoard, column, row, guessedValue);
                 backtrack.add(backtrackEntry);
             }
         }
     }
 
     public void goBack() {
+        backtrackStepsCount++;
+
         if (backtrack.size() > 0) {
             Backtrack lastBacktrack = backtrack.pollLast();
             SudokuBoard lastBoard = lastBacktrack.getSudokuBoard();
@@ -122,6 +148,25 @@ public class Algorithm {
             SudokuElement currentElement = sudokuBoard.getElementUnderGivenIndexes(column, row);
             currentElement.setValue(-1);
             currentElement.removeValueFromAvailableValues(lastGuessedValue);
+        }
+
+
+
+        if (backtrackStepsCount > 10) {
+            System.out.println("!!!!!!!!!Starting over!!!!!!!!");
+
+            SudokuBoard restartBoard = null;
+            try {
+                restartBoard = backtrack.getFirst().getSudokuBoard().deepCopy();
+            } catch (CloneNotSupportedException e) {
+                e.printStackTrace();
+            }
+
+
+            setSudokuBoard(restartBoard);
+            checker.setSudokuBoard(restartBoard);
+
+            backtrackStepsCount = 0;
         }
     }
 
