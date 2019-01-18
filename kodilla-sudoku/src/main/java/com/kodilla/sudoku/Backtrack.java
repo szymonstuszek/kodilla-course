@@ -1,4 +1,4 @@
-package com.kodilla.sudoku.exceptions;
+package com.kodilla.sudoku;
 
 import com.kodilla.sudoku.SudokuBoard;
 

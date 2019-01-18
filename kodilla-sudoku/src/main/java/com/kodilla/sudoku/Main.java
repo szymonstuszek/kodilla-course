@@ -1,7 +1,5 @@
 package com.kodilla.sudoku;
 
-import java.util.Scanner;
-
 public class Main {
     public static void main(String[] args) {
         boolean gameFinished = false;

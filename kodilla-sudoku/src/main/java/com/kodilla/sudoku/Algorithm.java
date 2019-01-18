@@ -1,25 +1,17 @@
 package com.kodilla.sudoku;
 
-import com.kodilla.sudoku.board_examples.ExampleBoards;
-import com.kodilla.sudoku.exceptions.Backtrack;
-
 import java.util.ArrayDeque;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 public class Algorithm {
     private Random random = new Random();
-    private ExampleBoards exampleBoards = new ExampleBoards();
     private SudokuBoard sudokuBoard;
     private Checker checker;
     private ArrayDeque<Backtrack> backtrack = new ArrayDeque<>();
-    private List<Backtrack> backtrackHistory = new ArrayList<>();
     private int backtrackStepsCount = 0;
     private int totalSteps = 0;
 
-    private SudokuBoard entryBoard;
-    private boolean entryBoardSaved = false;
 
     public Algorithm(SudokuBoard sudokuBoard) {
         this.sudokuBoard = sudokuBoard;
@@ -27,8 +19,7 @@ public class Algorithm {
     }
 
     public boolean checkIfBoardIsValid() {
-        boolean isValid = checker.checkIfBoardIsValid();
-        return isValid;
+        return checker.checkIfBoardIsValid();
     }
 
     public void solve() {
@@ -88,20 +79,6 @@ public class Algorithm {
                     e.printStackTrace();
                 }
 
-
-                if (!entryBoardSaved) {
-                    SudokuBoard clonedEntryBoard = null;
-                    try {
-                        clonedEntryBoard = sudokuBoard.deepCopy();
-                    } catch (CloneNotSupportedException e) {
-                        e.printStackTrace();
-                    }
-
-                    entryBoard = clonedEntryBoard;
-                    entryBoardSaved = true;
-                }
-
-
                 sudokuBoard.setValueOnBoard(column, row, guessedValue);
 
                 Backtrack backtrackEntry = new Backtrack(clonedBoard, column, row, guessedValue);
@@ -128,18 +105,18 @@ public class Algorithm {
             currentElement.removeValueFromAvailableValues(lastGuessedValue);
         }
 
+        if (backtrackStepsCount > 10)  goBackToEntryBoard();
+    }
 
+    private void goBackToEntryBoard() {
+        SudokuBoard restartBoard = null;
 
-        if (backtrackStepsCount > 10) {
-            System.out.println("!!!!!!!!!Starting over!!!!!!!!");
-
-            SudokuBoard restartBoard = null;
+        if (backtrack.size() > 0) {
             try {
                 restartBoard = backtrack.getFirst().getSudokuBoard().deepCopy();
             } catch (CloneNotSupportedException e) {
                 e.printStackTrace();
             }
-
 
             setSudokuBoard(restartBoard);
             checker.setSudokuBoard(restartBoard);
@@ -154,17 +131,5 @@ public class Algorithm {
 
     public ArrayDeque<Backtrack> getBacktrack() {
         return backtrack;
-    }
-
-    public void setBacktrack(ArrayDeque<Backtrack> backtrack) {
-        this.backtrack = backtrack;
-    }
-
-    public List<Backtrack> getBacktrackHistory() {
-        return backtrackHistory;
-    }
-
-    public void setBacktrackHistory(List<Backtrack> backtrackHistory) {
-        this.backtrackHistory = backtrackHistory;
     }
 }

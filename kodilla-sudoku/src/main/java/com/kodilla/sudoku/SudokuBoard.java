@@ -6,7 +6,6 @@ import java.util.Random;
 import java.util.stream.Collectors;
 
 public class SudokuBoard extends Prototype {
-    private Random random = new Random();
     private List<SudokuRow> rows = new ArrayList<>();
 
     public SudokuBoard() {

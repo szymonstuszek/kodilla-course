@@ -9,12 +9,10 @@ public class UserInput {
         this.scanner = scanner;
     }
 
-    //to implement
     public boolean isInputValid(String input) {
         return true;
     }
 
-    //how to fix return statement?
     public int chooseAction(String input) {
         if (input.equals("SUDOKU")) {
             return 0;

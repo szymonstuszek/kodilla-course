@@ -1,12 +1,5 @@
 package com.kodilla.sudoku;
 
-import com.kodilla.sudoku.exceptions.Backtrack;
-
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-
 public class Solver {
 //    private SudokuBoard sudokuBoard;
 //    private ArrayDeque<Backtrack> backtrack = new ArrayDeque<>();

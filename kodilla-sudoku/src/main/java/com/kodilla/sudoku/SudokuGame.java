@@ -1,9 +1,5 @@
 package com.kodilla.sudoku;
 
-import com.kodilla.sudoku.exceptions.Backtrack;
-
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class SudokuGame {

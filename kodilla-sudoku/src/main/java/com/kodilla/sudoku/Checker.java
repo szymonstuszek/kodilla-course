@@ -41,7 +41,10 @@ public class Checker {
             }
 
             actionsCount += updateElementsWithOneAvailableValueLeft();
-            if(actionsCount == 0) anyActionTaken = false;
+
+            if(actionsCount == 0) {
+                anyActionTaken = false;
+            }
         }
     }
 
