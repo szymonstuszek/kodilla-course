@@ -38,35 +38,12 @@ public class Algorithm {
         while (!isBoardSolved && isThereASolution) {
             boolean isBoardValid = checker.checkIfBoardIsValid();
 
-            try {
-                Thread.sleep(100);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-
             if(isBoardValid) {
-                System.out.println("Options before guesssing");
                 guessValue();
-                System.out.println("Guessing: " + sudokuBoard.toString());
-
-                try {
-                    Thread.sleep(100);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-
-
             } else {
 
-                if(backtrack.size() > 0) {
+                if(backtrack.size() > 0 && totalSteps < 1000) {
                     goBack();
-                    System.out.println("Options from backtrack: " + sudokuBoard.toString());
-                    try {
-                        Thread.sleep(100);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-
 
                 } else {
                     isThereASolution = false;
@@ -75,6 +52,7 @@ public class Algorithm {
             }
             isBoardSolved = sudokuBoard.isBoardSolved();
         }
+        System.out.println(sudokuBoard.toString());
         System.out.println("Finished in: " + totalSteps + " steps");
     }
 

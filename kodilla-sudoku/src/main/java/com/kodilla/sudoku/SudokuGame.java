@@ -63,7 +63,6 @@ public class SudokuGame {
             }
         }
 
-        System.out.println(sudokuBoard.toString());
         System.out.println(Constants.sudokuResolved);
     }
 
