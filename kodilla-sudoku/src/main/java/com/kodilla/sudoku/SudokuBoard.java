@@ -42,7 +42,7 @@ public class SudokuBoard extends Prototype {
         if (sudokuElement.getAvailableValues().contains(value)) {
             return true;
         } else {
-            System.out.println("This is not a valid value!");
+            System.out.println(value + " is not a valid value!");
             return false;
         }
     }
@@ -155,9 +155,8 @@ public class SudokuBoard extends Prototype {
             } else {
                 boardString += rows.get(i).toString() + "\n";
             }
-
         }
-        return "-------------------\n" +
+        return "\n-------------------\n" +
                 boardString + "\n" +
                 "-------------------";
     }

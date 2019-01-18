@@ -28,14 +28,6 @@ public class UserInput {
             return 2;
         }
 
-        if (input.equals("BACK")) {
-            return 3;
-        }
-
-        if (input.equals("TEST")) {
-            return 4;
-        }
-
         return 9;
     }
 

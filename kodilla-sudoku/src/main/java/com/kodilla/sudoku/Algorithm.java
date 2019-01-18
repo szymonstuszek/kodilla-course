@@ -22,21 +22,54 @@ public class Algorithm {
         this.checker = new Checker(sudokuBoard);
     }
 
+    public boolean checkIfBoardIsValid() {
+        boolean isValid = checker.checkIfBoardIsValid();
+        return isValid;
+    }
+
     public void solve() {
         boolean isThereASolution = true;
         boolean isBoardSolved = false;
 
+        sudokuBoard = exampleBoards.createBoardForErrorChecks();
+
         while (!isBoardSolved && isThereASolution) {
             boolean isBoardValid = checker.checkIfBoardIsValid();
+            System.out.println("Before guessing: " + sudokuBoard.toString());
+
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
 
             if(isBoardValid) {
                 guessValue();
+                System.out.println("Guessing: " + sudokuBoard.toString());
+
+                try {
+                    Thread.sleep(500);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+
             } else {
 
                 if(backtrack.size() > 0) {
                     goBack();
+                    System.out.println("Going back: " + sudokuBoard.toString());
+
+                    try {
+                        Thread.sleep(500);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
+
                 } else {
                     isThereASolution = false;
+                    System.out.println("No solution");
                 }
             }
 

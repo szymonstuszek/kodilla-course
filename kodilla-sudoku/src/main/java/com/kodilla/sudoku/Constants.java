@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class Constants {
     public static final int EMPTY_FIELD = -1;
     public static final int SIZE_OF_BOARD = 9;
+    public static final int COUNT_OF_BLOCKS = 3;
 
     public static final String INSTRUCTIONS =
             "Provide column, row number and value \n" +

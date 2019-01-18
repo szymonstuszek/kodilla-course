@@ -37,8 +37,7 @@ public class SudokuGame {
                 switch (action) {
                     case 0:
                         algorithm.solve();
-                        System.out.println("Solved!!!!!!!!!!!");
-                        System.out.println(sudokuBoard.toString());
+                        sudokuResolved = true;
                         break;
 
                     case 1:
@@ -46,11 +45,8 @@ public class SudokuGame {
                         int row = userInput.getRowIndex(input);
                         int value = userInput.getValue(input);
 
-//                        addIntoBacktrack(column, row, value);
                         sudokuBoard.setValueOnBoard(column, row, value);
-//                        algorithm.updateSudokuBoard();
-
-//                        sudokuResolved = algorithm.isSudokuSolved();
+                        algorithm.checkIfBoardIsValid();
                         break;
 
                     case 2:
@@ -58,34 +54,6 @@ public class SudokuGame {
                         row = userInput.getRowIndex(input);
 
                         sudokuBoard.checkAvailableValues(column, row);
-                        break;
-
-                    case 3:
-//                        Backtrack backtrackEntry = backtrack.get(backtrack.size()-1);
-//                        System.out.println(backtrackEntry);
-                        break;
-
-                        //test case how to write in tests?
-                    case 4:
-//                        SudokuBoard boardToSet = new SudokuBoard();
-//                        boardToSet.initializeBoard();
-//
-//                        SudokuElement sudokuElement = boardToSet.getElementUnderGivenIndexes(0, 0);
-//                        sudokuElement.setValue(9);
-
-//                        System.out.println("Before");
-//                        System.out.println("Board to insert");
-//                        System.out.println(sudokuBoard.toString());
-//                        System.out.println("Original board");
-//                        System.out.println(algorithm.sudokuBoard.toString());
-//
-//                        algorithm.setSudokuBoard(boardToSet);
-//
-//                        System.out.println("After");
-//                        System.out.println("Board to insert");
-//                        System.out.println(sudokuBoard.toString());
-//                        System.out.println("Original board");
-//                        System.out.println(algorithm.sudokuBoard.toString());
                         break;
 
                     default:
@@ -99,21 +67,6 @@ public class SudokuGame {
         System.out.println(Constants.sudokuResolved);
     }
 
-    private void addIntoBacktrack(int column, int row, int value) {
-        SudokuBoard clonedBoard = null;
-
-        try {
-            clonedBoard = sudokuBoard.deepCopy();
-        } catch (CloneNotSupportedException e) {
-            e.printStackTrace();
-        }
-
-        Backtrack backtrackEntry = new Backtrack(clonedBoard, column, row, value);
-//        backtrack.add(backtrackEntry);
-    }
-
-    //check if still playing
-    //put into user input?
     public boolean finishGame() {
         System.out.println("Do you still want to play?");
         System.out.println("Type 'no' to quit");
