@@ -6,6 +6,7 @@ public class Main {
 
         while(!gameFinished) {
             SudokuGame theGame = new SudokuGame();
+            theGame.runGame();
             gameFinished = theGame.finishGame();
         }
     }

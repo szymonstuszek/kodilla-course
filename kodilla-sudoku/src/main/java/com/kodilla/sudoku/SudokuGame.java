@@ -3,23 +3,18 @@ package com.kodilla.sudoku;
 import java.util.Scanner;
 
 public class SudokuGame {
-   private Scanner scanner;
-   private SudokuBoard sudokuBoard;
-   private UserInput userInput;
-   private SudokuSolver solver;
+   private Scanner scanner =  new Scanner(System.in);
+   private SudokuBoard sudokuBoard = new SudokuBoard();
+   private UserInput userInput = new UserInput(scanner);
+   private SudokuSolver solver = new SudokuSolver(sudokuBoard);
 
    private boolean sudokuResolved = false;
 
     public SudokuGame() {
-        this.scanner =  new Scanner(System.in);
-        this.sudokuBoard = new SudokuBoard();
-        this.userInput = new UserInput(scanner);
-        this.solver = new SudokuSolver(sudokuBoard);
 
-        runGame();
     }
 
-    private void runGame() {
+    public void runGame() {
 
         while(!sudokuResolved) {
             System.out.println(sudokuBoard.toString());
@@ -68,11 +63,7 @@ public class SudokuGame {
         String response = scanner.nextLine();
         System.out.println("You have chosen: " + response);
 
-        if(response.equals("no")) {
-            return true;
-        } else {
-            return false;
-        }
+        return response.equals("no");
     }
 
     public void setSudokuBoard(SudokuBoard sudokuBoard) {

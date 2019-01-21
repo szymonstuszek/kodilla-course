@@ -115,7 +115,7 @@ public class SudokuSolver {
             try {
                 restartBoard = backtrack.getFirst().getSudokuBoard().deepCopy();
             } catch (CloneNotSupportedException e) {
-                e.printStackTrace();
+                System.out.println("Could not clone board!");
             }
 
             setSudokuBoard(restartBoard);

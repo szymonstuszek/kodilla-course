@@ -8,8 +8,14 @@ public class SudokuElement {
     private List<Integer> availableValues;
 
     public SudokuElement() {
-        this.value = Constants.EMPTY_FIELD;
-        this.availableValues = Constants.valuesForEmptyFieldList();
+        this.value = -1;
+        createValuesForEmptyField();
+    }
+
+    private void createValuesForEmptyField() {
+        for (int i = 0; i < 9; i++) {
+            availableValues.add(i+1);
+        }
     }
 
     public int getValue() {
@@ -25,7 +31,7 @@ public class SudokuElement {
     }
 
     public boolean isEmpty() {
-        return this.value == Constants.EMPTY_FIELD;
+        return this.value == -1;
     }
 
     public void removeValueFromAvailableValues(int i) {

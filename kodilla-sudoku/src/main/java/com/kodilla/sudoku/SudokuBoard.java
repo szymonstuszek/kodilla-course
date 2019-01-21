@@ -2,13 +2,16 @@ package com.kodilla.sudoku;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 import java.util.stream.Collectors;
 
 public class SudokuBoard extends Prototype {
     private List<SudokuRow> rows = new ArrayList<>();
 
     public SudokuBoard() {
+        createBoard();
+    }
+
+    private void createBoard() {
         for (int i = 0; i < Constants.SIZE_OF_BOARD; i++) {
             SudokuRow row = new SudokuRow();
             rows.add(row);

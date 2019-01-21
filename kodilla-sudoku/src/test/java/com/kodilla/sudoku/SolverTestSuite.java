@@ -5,26 +5,26 @@ import com.kodilla.sudoku.boards.examples.ExampleBoards;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class AlgorithmTestSuite {
+public class SolverTestSuite {
 
     @Test
     public void testGuessValue() {
         //Given
         SudokuBoard fullBoard = ExampleBoards.createFilledOutBoard();
-        SudokuSolver algorithm = new SudokuSolver(fullBoard);
+        SudokuSolver solver = new SudokuSolver(fullBoard);
 
         SudokuBoard sudokuBoard = ExampleBoards.createBoardForErrorChecks();
-        SudokuSolver algorithm2 = new SudokuSolver(sudokuBoard);
+        SudokuSolver solver2 = new SudokuSolver(sudokuBoard);
 
         //When
 
         //Then
         System.out.println(fullBoard.toString());
-        algorithm.guessValue();
+        solver.guessValue();
         System.out.println(fullBoard.toString());
 
         System.out.println(sudokuBoard.toString());
-        algorithm2.guessValue();
+        solver2.guessValue();
         System.out.println(sudokuBoard.toString());
 
     }
@@ -33,14 +33,14 @@ public class AlgorithmTestSuite {
     public void testGuessValueOnElementWithNoValuesAvailable() {
         //Given
         SudokuBoard sudokuBoard = ExampleBoards.createFilledOutBoard();
-        SudokuSolver algorithm = new SudokuSolver(sudokuBoard);
+        SudokuSolver solver = new SudokuSolver(sudokuBoard);
 
         SudokuElement element = sudokuBoard.getElementUnderGivenIndexes(0, 0);
         element.setValue(-1);
         element.getAvailableValues().clear();
 
         //When
-        algorithm.guessValue();
+        solver.guessValue();
 
         //Then
         System.out.println(sudokuBoard.toString());
@@ -50,46 +50,46 @@ public class AlgorithmTestSuite {
     public void testAddingEntriesToBacktracking() {
         //Given
         SudokuBoard sudokuBoard = ExampleBoards.createBoardForErrorChecks();
-        SudokuSolver algorithm = new SudokuSolver(sudokuBoard);
+        SudokuSolver solver = new SudokuSolver(sudokuBoard);
 
         //When
         System.out.println(sudokuBoard.toString());
-        algorithm.guessValue();
+        solver.guessValue();
         System.out.println(sudokuBoard.toString());
-        algorithm.guessValue();
+        solver.guessValue();
         System.out.println(sudokuBoard.toString());
 
         //Then
-        Assert.assertEquals(2, algorithm.getBacktrack().size());
+        Assert.assertEquals(2, solver.getBacktrack().size());
     }
 
     @Test
     public void testGoBack() {
         //Given
         SudokuBoard sudokuBoard = ExampleBoards.createBoardForErrorChecks();
-        SudokuSolver algorithm = new SudokuSolver(sudokuBoard);
+        SudokuSolver solver = new SudokuSolver(sudokuBoard);
 
         //When
         System.out.println(sudokuBoard.toString());
-        algorithm.guessValue();
+        solver.guessValue();
         System.out.println(sudokuBoard.toString());
-        algorithm.guessValue();
+        solver.guessValue();
         System.out.println(sudokuBoard.toString());
-        algorithm.goBack();
+        solver.goBack();
         System.out.println(sudokuBoard.toString());
 
         //Then
-        Assert.assertEquals(1, algorithm.getBacktrack().size());
+        Assert.assertEquals(1, solver.getBacktrack().size());
     }
 
     @Test
     public void testGoBackWhenNoEntries() {
         //Given
         SudokuBoard sudokuBoard = ExampleBoards.createBoardForErrorChecks();
-        SudokuSolver algorithm = new SudokuSolver(sudokuBoard);
+        SudokuSolver solver = new SudokuSolver(sudokuBoard);
 
         //When
-        algorithm.solve();
+        solver.solve();
 
         //Then
     }
