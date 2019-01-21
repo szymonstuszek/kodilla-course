@@ -9,7 +9,7 @@ public class SudokuGameTestSuite {
         //Given
         SudokuGame sudokuGame = new SudokuGame();
         SudokuBoard sudokuBoard = sudokuGame.getSudokuBoard();
-        Algorithm algorithm = new Algorithm(sudokuBoard);
+        SudokuSolver algorithm = new SudokuSolver(sudokuBoard);
 
         SudokuBoard boardToSet = new SudokuBoard();
 

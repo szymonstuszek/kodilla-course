@@ -1,4 +1,4 @@
-package com.kodilla.sudoku.board_examples;
+package com.kodilla.sudoku.boards.examples;
 
 
 import com.kodilla.sudoku.SudokuBoard;

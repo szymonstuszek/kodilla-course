@@ -4,7 +4,7 @@ import java.util.ArrayDeque;
 import java.util.List;
 import java.util.Random;
 
-public class Algorithm {
+public class SudokuSolver {
     private Random random = new Random();
     private SudokuBoard sudokuBoard;
     private Checker checker;
@@ -13,7 +13,7 @@ public class Algorithm {
     private int totalSteps = 0;
 
 
-    public Algorithm(SudokuBoard sudokuBoard) {
+    public SudokuSolver(SudokuBoard sudokuBoard) {
         this.sudokuBoard = sudokuBoard;
         this.checker = new Checker(sudokuBoard);
     }

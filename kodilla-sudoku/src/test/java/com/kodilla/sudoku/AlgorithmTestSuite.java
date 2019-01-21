@@ -1,7 +1,7 @@
 package com.kodilla.sudoku;
 
 
-import com.kodilla.sudoku.board_examples.ExampleBoards;
+import com.kodilla.sudoku.boards.examples.ExampleBoards;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -11,10 +11,10 @@ public class AlgorithmTestSuite {
     public void testGuessValue() {
         //Given
         SudokuBoard fullBoard = ExampleBoards.createFilledOutBoard();
-        Algorithm algorithm = new Algorithm(fullBoard);
+        SudokuSolver algorithm = new SudokuSolver(fullBoard);
 
         SudokuBoard sudokuBoard = ExampleBoards.createBoardForErrorChecks();
-        Algorithm algorithm2 = new Algorithm(sudokuBoard);
+        SudokuSolver algorithm2 = new SudokuSolver(sudokuBoard);
 
         //When
 
@@ -33,7 +33,7 @@ public class AlgorithmTestSuite {
     public void testGuessValueOnElementWithNoValuesAvailable() {
         //Given
         SudokuBoard sudokuBoard = ExampleBoards.createFilledOutBoard();
-        Algorithm algorithm = new Algorithm(sudokuBoard);
+        SudokuSolver algorithm = new SudokuSolver(sudokuBoard);
 
         SudokuElement element = sudokuBoard.getElementUnderGivenIndexes(0, 0);
         element.setValue(-1);
@@ -50,7 +50,7 @@ public class AlgorithmTestSuite {
     public void testAddingEntriesToBacktracking() {
         //Given
         SudokuBoard sudokuBoard = ExampleBoards.createBoardForErrorChecks();
-        Algorithm algorithm = new Algorithm(sudokuBoard);
+        SudokuSolver algorithm = new SudokuSolver(sudokuBoard);
 
         //When
         System.out.println(sudokuBoard.toString());
@@ -67,7 +67,7 @@ public class AlgorithmTestSuite {
     public void testGoBack() {
         //Given
         SudokuBoard sudokuBoard = ExampleBoards.createBoardForErrorChecks();
-        Algorithm algorithm = new Algorithm(sudokuBoard);
+        SudokuSolver algorithm = new SudokuSolver(sudokuBoard);
 
         //When
         System.out.println(sudokuBoard.toString());
@@ -86,7 +86,7 @@ public class AlgorithmTestSuite {
     public void testGoBackWhenNoEntries() {
         //Given
         SudokuBoard sudokuBoard = ExampleBoards.createBoardForErrorChecks();
-        Algorithm algorithm = new Algorithm(sudokuBoard);
+        SudokuSolver algorithm = new SudokuSolver(sudokuBoard);
 
         //When
         algorithm.solve();

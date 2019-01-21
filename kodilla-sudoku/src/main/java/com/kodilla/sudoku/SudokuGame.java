@@ -6,7 +6,7 @@ public class SudokuGame {
    private Scanner scanner;
    private SudokuBoard sudokuBoard;
    private UserInput userInput;
-   private Algorithm algorithm;
+   private SudokuSolver solver;
 
    private boolean sudokuResolved = false;
 
@@ -14,7 +14,7 @@ public class SudokuGame {
         this.scanner =  new Scanner(System.in);
         this.sudokuBoard = new SudokuBoard();
         this.userInput = new UserInput(scanner);
-        this.algorithm = new Algorithm(sudokuBoard);
+        this.solver = new SudokuSolver(sudokuBoard);
 
         runGame();
     }
@@ -32,7 +32,7 @@ public class SudokuGame {
 
                 switch (action) {
                     case 0:
-                        algorithm.solve();
+                        solver.solve();
                         sudokuResolved = true;
                         break;
 
@@ -42,7 +42,7 @@ public class SudokuGame {
                         int value = userInput.getValue(input);
 
                         sudokuBoard.setValueOnBoard(column, row, value);
-                        algorithm.checkIfBoardIsValid();
+                        solver.checkIfBoardIsValid();
                         break;
 
                     case 2:

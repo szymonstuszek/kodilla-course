@@ -1,6 +1,6 @@
 package com.kodilla.sudoku;
 
-import com.kodilla.sudoku.board_examples.ExampleBoards;
+import com.kodilla.sudoku.boards.examples.ExampleBoards;
 import org.junit.Assert;
 import org.junit.Test;
 
