@@ -1,11 +1,12 @@
 package com.kodilla.sudoku;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 public class SudokuElement {
     private int value;
-    private List<Integer> availableValues;
+    private List<Integer> availableValues = new ArrayList<>();
 
     public SudokuElement() {
         this.value = -1;
