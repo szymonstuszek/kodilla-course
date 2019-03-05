@@ -13,12 +13,12 @@ import java.util.List;
                 resultClass = Company.class
 
         ),
-//        @NamedNativeQuery(
-//                name = "Company.retrieveCompanyStartingWith",
-//                query = "SELECT * FROM COMPANIES WHERE COMPANY_NAME = :COMPANY_NAME",
-//                resultClass = Company.class
-//
-//        ),
+        @NamedNativeQuery(
+                name = "Company.retrieveCompanyContaining",
+                query = "SELECT * FROM COMPANIES WHERE COMPANY_NAME LIKE CONCAT('%', (:COMPANY_NAME), '%')",
+                resultClass = Company.class
+
+        )
 })
 
 @Entity

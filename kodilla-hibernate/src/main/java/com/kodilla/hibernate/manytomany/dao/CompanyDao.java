@@ -15,4 +15,6 @@ public interface CompanyDao extends CrudRepository<Company, Integer> {
 
     List<Company> retrieveCompanyStartingWith(@Param("COMPANY_NAME") String companyName);
 
+    List<Company> retrieveCompanyContaining(@Param("COMPANY_NAME") String companyName);
+
 }

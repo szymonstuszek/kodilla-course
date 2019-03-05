@@ -24,6 +24,44 @@ public class CompanyDaoTestSuite {
     EmployeeDao employeeDao;
 
     @Test
+    public void testRetrieveCompanyContaining() {
+        //Given
+        Company company = new Company("Southwestern");
+        companyDao.save(company);
+        int id = company.getId();
+
+        //When
+        List<Company> companies = companyDao.retrieveCompanyContaining("wester");
+
+
+        //Then
+        Assert.assertEquals(1, companies.size());
+
+        //Cleanup
+        companyDao.delete(company);
+    }
+
+    @Test
+    public void retrieveByNameContaining() {
+        //Given
+        Employee michael = new Employee("Michael", "Stone");
+
+        employeeDao.save(michael);
+        int employeeId = michael.getId();
+
+        //When
+        List<Employee> retrievedEmployees = employeeDao.retrieveByNameContaining("ton");
+        Employee retrievedEmployee = retrievedEmployees.get(0);
+        String retrievedLastname = retrievedEmployee.getLastname();
+
+        //Then
+        Assert.assertEquals("Stone", retrievedLastname);
+
+        //Cleanup
+        employeeDao.deleteById(employeeId);
+    }
+
+    @Test
     public void testRetrieveByLastNameQuery() {
         //Given
         Employee johnSmith = new Employee("John", "Smith");
